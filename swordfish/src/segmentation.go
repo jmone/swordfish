@@ -146,7 +146,7 @@ func add_new_words(dict map[string]int, words []string) map[string]int{
 
 //字典切分
 func dict_seg(data []segmentationData) []segmentationData{
-	dict := init_dict("lex-main.lex")
+	dict := init_dict("main.dict")
 	news_words := []string{"谷歌", "触控屏", "新浪", "美国", "麻刚沙", "毛利率"}
 	dict = add_new_words(dict, news_words)
 
@@ -225,12 +225,12 @@ func main(){
 	result := single_word_seg(text)
 	fmt.Println(result)
 	fmt.Println("--------------分词结果------------------------------------------------------------------------------------------------------------------")
-	/*
 	result = dict_seg(result)
 	for _, ele := range result{
 		fmt.Printf("%s ", ele.Text)
 	}
 	println()
+	/*
 	fmt.Println("--------------分词结果------------------------------------------------------------------------------------------------------------------")
 	result = []segmentationData{{Text:"建筑行业偷工减料、以次充好的乱象由来已久，最新曝出的一出是山东潍坊用麻刚沙盖楼。", IsFinal:false}, {Text:"小米科技是一家互联网企业", IsFinal:false}}
 	fmt.Println(dict_seg(result))
