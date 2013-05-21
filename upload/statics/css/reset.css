@@ -1,0 +1,67 @@
+/* global */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,button,textarea,p,th,td {margin:0; padding:0;}
+body {font:normal 12px/1.5 Arial,sans-serif; background:#FFF;}
+img {border:0;}
+ol,ul {list-style:none;}
+textarea {resize:none;}
+* {outline:none;}
+
+/* link */
+a {color:#0464BB; text-decoration:none;}
+a:hover, a:focus {color:#1C417C; text-decoration:underline;}
+
+/* .x-icon */
+.x-icon {float:left; width:16px; height:16px; background:url(/statics/images/icon.png);}
+.x-icon-red-cross {background-position:0 0;}
+.x-icon-green-right {background-position:-16px 0;}
+.x-icon-info {background-position:-32px 0;}
+.x-icon-warning {background-position:-48px 0;}
+.x-icon-home {background-position:-80px 0;}
+.x-icon-computer {background-position:-96px 0;}
+.x-icon-setting {background-position:-112px 0;}
+.x-icon-checkbox {background-position:-128px 0;}
+.x-icon-checkbox-y {background-position:-144px 0;}
+.x-icon-checkbox-h {background-position:-160px 0;}
+.x-icon-tab {background-position:-240px 0;}
+.x-icon-tab-color {background-position:-224px 0;}
+.x-icon-tab-y {background-position:-256px 0;}
+.x-icon-tab-y-gray {background-position:-272px 0;}
+.x-icon-plus {background-position:-320px 0;}
+.x-icon-minus {background-position:-336px 0;}
+.x-icon-chart-bar {background-position:-400px 0;}
+.x-icon-coins {background-position:-416px 0;}
+.x-icon-package {background-position:-432px 0;}
+.x-icon-user {background-position:-448px 0;}
+.x-icon-pencil {background-position:-480px 0;}
+.x-icon-calendar {background-position:-512px 0;}
+.x-icon-hammer-screw {background-position:-544px 0;}
+.x-icon-rmb {background-position:-592px 0;}
+.x-icon-female {background-position:-624px 0;}
+.x-icon-telephone {background-position:-656px 0;}
+.x-icon-delivery {background-position:-672px 0;}
+.x-icon-colorful {background-position:-688px 0;}
+.x-icon-miui {background-position:-704px 0;}
+.x-icon-search {background-position:-720px 0;}
+.x-icon-female-gray {background-position:-736px 0;}
+.x-icon-bulb {background-position:-752px 0;}
+.x-icon-lab {background-position:-768px 0;}
+.x-icon-flag {background-position:-784px 0;}
+.x-icon-scm {background-position:-800px 0;}
+.x-icon-clock {background-position:-816px 0;}
+.x-icon-mi {background-position:-864px 0;}
+.x-icon-fcode {background-position:-880px 0;}
+.x-icon-page-code {background-position:-896px 0;}
+
+
+/* .x-tooltip */
+.x-tooltip {position:absolute; z-index:990;}
+.x-tooltip-inner {position:relative;}
+.x-tooltip-content {padding:6px 10px; text-align:center; line-height:20px; color:#FFF; border-radius:3px; background:rgba(51,51,51,0.7);}
+.x-tooltip-content a {color:#FFF;}
+.x-tooltip-arrow {position:absolute; left:50%; margin-left:-5px; display:block; width:10px; height:5px; background:url(/statics/images/icon.png); overflow:hidden;}
+
+.x-tooltip-top .x-tooltip-inner {padding-bottom:5px;}
+.x-tooltip-top .x-tooltip-arrow {bottom:0; background-position:-67px -9px;}
+
+.x-tooltip-bottom .x-tooltip-inner {padding-top:5px;}
+.x-tooltip-bottom .x-tooltip-arrow {top:0; background-position:-67px -2px;}

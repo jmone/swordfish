@@ -87,3 +87,34 @@ Stack trace:
 REQUEST_URI=/index.php?r=swordfish/stopWord/create
 HTTP_REFERER=http://sword.fish/index.php?r=swordfish/stopWord/create
 ---
+2013/05/21 17:23:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "swordfish/login".' in /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php:280
+Stack trace:
+#0 /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('swordfish/login')
+#1 /home/wwwroot/swordfish/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /home/wwwroot/swordfish/upload/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=swordfish/login
+---
+2013/05/21 17:24:15 [error] [exception.CException] exception 'CException' with message 'DefaultController cannot find the requested view "login".' in /home/wwwroot/swordfish/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/wwwroot/swordfish/yii/framework/web/CController.php(783): CController->renderPartial('login', NULL, true)
+#1 /home/wwwroot/swordfish/upload/protected/modules/swordfish/controllers/DefaultController.php(11): CController->render('login')
+#2 /home/wwwroot/swordfish/yii/framework/web/actions/CInlineAction.php(50): DefaultController->actionLogin()
+#3 /home/wwwroot/swordfish/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/wwwroot/swordfish/yii/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#5 /home/wwwroot/swordfish/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php(276): CController->run('login')
+#7 /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('swordfish/defau...')
+#8 /home/wwwroot/swordfish/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#9 /home/wwwroot/swordfish/upload/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php?r=swordfish/default/login
+---
+2013/05/21 20:39:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "swordfish/stopword".' in /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php:280
+Stack trace:
+#0 /home/wwwroot/swordfish/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('swordfish/stopw...')
+#1 /home/wwwroot/swordfish/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /home/wwwroot/swordfish/upload/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=swordfish/stopword
+---

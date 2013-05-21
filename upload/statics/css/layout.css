@@ -1,0 +1,49 @@
+/* reset */
+body {min-width:960px; background:#FFF url(/statics/images/bg.gif) repeat-y;}
+
+/* #header */
+#header {width:100%; height:50px; border-bottom:1px solid #145076; background:url(/statics/images/rx.gif); zoom:1; box-shadow:0 1px 2px #95B8CE;}
+#header .logo {float:left; margin:12px 0 0 12px; width:230px; height:26px; color:#DDE6EE; font-size:20px; font-family:'Heiti SC','Microsoft Yahei'; font-weight:bold; background:url(/statics/images/logo-white.png) no-repeat; text-indent:-99999px;}
+#header .r {float:right; display:inline; margin:10px 20px 0 0; height:30px; line-height:30px; color:#A5C6EC;}
+#header .r a {color:#FFF;}
+#header .r strong {margin-right:10px; font-size:14px; color:#FFF; text-shadow:0 -1px 0 blue;}
+
+/* #sidebar */
+#sidebar {position:absolute; top:51px; left:0; padding-top:10px; width:161px;}
+
+/* #menu */
+#menu {width:100%; overflow:auto;}
+#menu li {float:left; width:100%;}
+#menu li a {display:block; margin-right:1px; height:30px; line-height:30px; font-size:12px; font-weight:bold; color:#666; text-shadow:0 1px 0 #FFF; text-decoration:none; border-top:1px solid #F6F7F9; border-bottom:1px solid #F6F7F9;}
+#menu li a:hover {color:#333; text-shadow:0 1px 0 #FFF; font-weight:bold; border-color:#DDE7EF; background-color:#EEF1F5;}
+#menu li a .x-icon {margin:7px 8px 0 10px;}
+#menu li.current a {margin-right:0; color:#2C71A5; background:#FFF; border-color:#DFDFDF; font-weight:bold;}
+#menu li.current a:hover {background:#FFF;}
+#menu li a.collapse {background:url(/statics/images/rx.gif) right -1045px no-repeat;}
+#menu li a.collapse-down {background-position:right -240px;}
+#menu li ul {padding:0 0 5px; width:100%; overflow:auto; border-bottom:1px solid #D6D6D6;}
+#menu li ul li {padding:0;}
+#menu li ul li a {padding-left:42px; height:28px; line-height:28px; font-size:12px; font-weight:normal; background:none;}
+#menu li ul li a:hover {text-shadow:0 1px 0 #FFF;}
+
+/* #main */
+#main {margin-left:161px; padding:0 10px 40px; zoom:1;}
+
+/* #tab */
+/*
+#tab {margin-top:1px; height:40px; border-bottom:1px solid #D6D6D6;}
+#tab ul {position:relative; top:9px; float:left; height:32px;}
+#tab ul li {float:left; margin-left:4px; height:30px; line-height:30px; border:1px solid #C0CAD1; border-radius:5px 5px 0 0; background:#E0E5E8;}
+#tab ul li.current {border-bottom-color:#FFF; background:#FFF;}
+#tab ul li a {display:block; padding:0 10px; line-height:30px; font-size:14px; color:#5E6A80; text-shadow:0 1px 0 #FFF;}
+#tab ul li a:hover {color:#2B92E5; text-decoration:none;}
+
+#tab h2 {float:left; line-height:40px; font-size:14px; color:#364656;}
+*/
+#tab {margin-top:10px; padding:0 10px 0 11px; height:31px; border-bottom:2px solid #3579B0; overflow:hidden;}
+#tab ul {height:31px; font-size:14px; _padding-left:2px;}
+#tab ul li {float:left; margin-left:-1px; height:31px;}
+#tab ul li a {float:left; margin-top:2px; padding:0 12px; height:28px; line-height:28px; color:#999; border:1px solid #BBCDDF; border-bottom:0; background:url(/statics/images/new-tab-bg.gif) 0 -40px; border-radius:3px 3px 0 0; text-decoration:none;}
+#tab ul li a:hover {color:#666; background-position:0 -80px;}
+#tab ul li.current a,
+#tab ul li.current a:hover {position:relative; margin-top:0; height:30px; line-height:30px; color:#FFF; background-color:#428BC7; background-position:0 0; border-color:#1A527D; text-shadow:0 -1px 0 #1A527D;}
