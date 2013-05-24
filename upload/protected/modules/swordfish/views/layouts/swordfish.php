@@ -6,7 +6,7 @@
 <meta name="description" content="" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-control" content="no-cache">
-<title>小米运营数据平台</title>
+<title>易普搜索管理平台</title>
 <link rel="stylesheet" href="/statics/css/reset.css" />
 <link rel="stylesheet" href="/statics/css/widget.css" />
 <link rel="stylesheet" href="/statics/css/layout.css" />
@@ -174,12 +174,47 @@
     <a href="javascript:;" title="关闭菜单(U)" class="x-menu-switch-btn"></a>
     
     <div id="header">
-        <a href="./index.php" class="logo">小米运营数据平台</a>
+        <a href="./index.php" class="logo">易普搜索管理平台</a>
         <div class="r">您好，<strong>蒋明！</strong>[ <a href="index.php?module=index&do=logout">安全退出</a> ]</div>
     </div>    
     <div id="sidebar"><!--菜单-->
         <ul id="menu">
-        <li id="item_20"  has_child="1" class="current"> <a href="index.php?module=frame&do=index" highlight="20" class="jq-default"><img src="images/s.gif" class="x-icon x-icon-home" />控制面板</a></li><li id="item_554"  has_child="1"> <a href="javascript:;" highlight="554" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />领取F码</a><ul id="group_554" pid="554" style="display:none" ><li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />领取F码</a></li></ul></li><li id="item_499"  has_child="1"> <a href="javascript:;" highlight="499" class="collapse"><img src="images/s.gif" class="x-icon x-icon-mi" />MiBoss</a><ul id="group_499" pid="499" style="display:none" ><li id="item_528" > <a href="index.php?module=miboss-iweek&do=index" highlight="528" ><img src="images/s.gif" class="" />iWeek</a></li></ul></li>        </ul>
+        <li id="item_20"  has_child="1" class="current"> <a href="index.php?module=frame&do=index" highlight="20" class="jq-default"><img src="images/s.gif" class="x-icon x-icon-home" />控制面板</a></li>
+        <li id="item_554"  has_child="1">
+            <a href="javascript:;" highlight="554" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />词典管理</a>
+            <ul id="group_554" pid="554" style="display:none" >
+                <li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />默认词典</a></li>
+                <li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />扩展词典</a></li>
+                <li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />停止词</a></li>
+                <li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />拼音映射</a></li>
+                <li id="item_555" > <a href="index.php?module=fcode-getFcode&do=index" highlight="555" ><img src="images/s.gif" class="" />近义词</a></li>
+            </ul>
+        </li>
+        <li id="item_499"  has_child="1">
+            <a href="javascript:;" highlight="499" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />索引管理</a>
+            <ul id="group_499" pid="499" style="display:none" >
+                <li id="item_528" > <a href="index.php?module=miboss-iweek&do=index" highlight="528" ><img src="images/s.gif" class="" />iWeek</a></li>
+            </ul>
+        </li>
+        <li id="item_499"  has_child="1">
+            <a href="javascript:;" highlight="499" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />爬虫管理</a>
+            <ul id="group_499" pid="499" style="display:none" >
+                <li id="item_528" > <a href="index.php?module=miboss-iweek&do=index" highlight="528" ><img src="images/s.gif" class="" />iWeek</a></li>
+            </ul>
+        </li>
+        <li id="item_499"  has_child="1">
+            <a href="javascript:;" highlight="499" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />缓存管理</a>
+            <ul id="group_499" pid="499" style="display:none" >
+                <li id="item_528" > <a href="index.php?module=miboss-iweek&do=index" highlight="528" ><img src="images/s.gif" class="" />iWeek</a></li>
+            </ul>
+        </li>
+        <li id="item_499"  has_child="1">
+            <a href="javascript:;" highlight="499" class="collapse"><img src="images/s.gif" class="x-icon x-icon-fcode" />运行状态</a>
+            <ul id="group_499" pid="499" style="display:none" >
+                <li id="item_528" > <a href="index.php?module=miboss-iweek&do=index" highlight="528" ><img src="images/s.gif" class="" />iWeek</a></li>
+            </ul>
+        </li>
+        </ul>
     </div>
     
     <div id="main">
@@ -242,32 +277,44 @@
     <li>
         <a href="index.php?module=fcode-getFcode&do=getFcode">
             <img src="images/pc/icon48/icon48-fcode.png" />
-            <h2>领取F码</h2>
-            <h3>小米员工内部领取</h3>
+            <h2>爬虫管理</h2>
+            <h3>监控、管理爬虫状态</h3>
         </a>
-    </li>    
+    </li>
+    <li>
+        <a href="index.php?module=fcode-getFcode&do=getFcode">
+            <img src="images/pc/icon48/icon48-fcode.png" />
+            <h2>扩展分词词典</h2>
+            <h3>自定义分词词典管理</h3>
+        </a>
+    </li>
+    <li>
+        <a href="index.php?module=fcode-getFcode&do=getFcode">
+            <img src="images/pc/icon48/icon48-fcode.png" />
+            <h2>索引管理</h2>
+            <h3>索引查看、优化</h3>
+        </a>
+    </li>
 </ul>
 
-<!--
-<h2 class="x-page-simple-title">常用软件</h2>
+<h2 class="x-page-simple-title">常用功能</h2>
 
 <ul class="x-page-shortcut">
     <li>
         <a href="javascript:;">
             <img src="images/pc/icon48/icon48-chrome.png" />
-            <h2>Chrome</h2>
-            <h3>google出品的浏览器</h3>
+            <h2>停止词</h2>
+            <h3>管理您的停止词</h3>
         </a>
     </li>
     <li>
         <a href="#">
             <img src="images/pc/icon48/icon48-gvim.png" />
-            <h2>gvim</h2>
-            <h3>可加密的文本编辑器</h3>
+            <h2>缓存管理</h2>
+            <h3>缓存使用状态管理</h3>
         </a>
     </li>
 </ul>
--->
 
 
 <div class="jq-dd" style="display:none;">

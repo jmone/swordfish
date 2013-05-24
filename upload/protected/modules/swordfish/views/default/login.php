@@ -4,7 +4,7 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="" />
-<title>小米运营数据平台</title>
+<title>欢迎登录易普搜索管理平台！</title>
 <link rel="stylesheet" href="/statics/css/reset.css" />
 <link rel="stylesheet" href="/statics/css/login.css" />
 <script src="/statics/js/jquery.min.js"></script>
@@ -234,12 +234,12 @@ $(function(){
     <div id="sticky-footer-outer">
         <div id="header">
             <div class="header-inner">
-                <a href="./" class="logo">小米</a>
+                <a href="./" class="logo">易普搜索管理平台</a>
                 <div class="sub">
-                    <h5>小米运营数据平台</h5>
-                    <h6>Xiaomi Data platform</h6>
+                    <h5>易普搜索管理平台</h5>
+                    <h6>Swordfish manage platform</h6>
                 </div>
-                <img src="/statics/images/s.gif" class="slogan" />
+                <!--img src="/statics/images/s.gif" class="slogan" /-->
             </div>
         </div>
         <div id="wrapper">
@@ -247,7 +247,7 @@ $(function(){
             <div id="login-box">
                 <div class="title">
                     <h2>用户登录</h2>
-                    <h3>请使用小米邮箱登录</h3>
+                    <h3>请使用管理员邮箱登录</h3>
                 </div>
                 <div id="msgBox" class="x-msg-bar x-msg-bar-error" style="display:none;"><img src="/statics/images/s.gif" class="x-icon x-icon-red-cross" /><span>帐号信息错误</span></div>
                 <div id="msgBoxInfo" class="x-msg-bar x-msg-bar-info" style="display:none;"><img src="/statics/images/s.gif" class="x-icon" /><span>帐号信息错误</span></div>
@@ -270,13 +270,10 @@ $(function(){
     </div>
     <div id="footer"><div class="footer-inner">
         <ul>
-            <li>&copy; 2012 - 2013 xiaomi.com</li>
-            <!-- <li><a href="#">关于xData</a></li> -->
+            <li>&copy; 2006 - <?php echo date('Y');?> exephp.com</li>
         </ul>
         <ul style="float:right;">
-            <li><a href="http://www.xiaomi.com">小米网</a></li>
-            <li><a href="http://www.miui.com">MIUI</a></li>
-            <li><a href="http://www.miliao.com">米聊</a></li>
+            <li><a href="http://www.exephp.com">易普科技</a></li>
         </ul>
     </div></div>
 

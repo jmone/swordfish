@@ -15,7 +15,7 @@ import(
 
 const(
 	MaxLenght = 10
-	MinLenght = 2
+	MinLenght = 1
 )
 
 type segmentationData struct{
@@ -127,12 +127,16 @@ func init_dict(path string) map[string]int{
 	}
 	text := string(input)
 	text = strings.Replace(text, "null", "", -1)
-	text = strings.Replace(text, "\n", "", -1)
-	words := strings.Split(text, "/")
+	text = strings.Replace(text, "\r", "", -1)
+	text = strings.Replace(text, "", "", -1)
+	words := strings.Split(text, "\n")
 	dict := map[string]int{}
 	for _, word := range words{
+		//fmt.Println(word)
+		word = strings.Replace(word, "\n", "", -1)
 		dict[word] = 1
 	}
+	fmt.Printf("%v\n\n\n", len(dict))
 	return dict
 }
 func add_new_words(dict map[string]int, words []string) map[string]int{
@@ -219,13 +223,23 @@ func main(){
 	}
 	text := string(input)
 	text = filter(text)
+	println()
 	fmt.Println("--------------字符过滤------------------------------------------------------------------------------------------------------------------")
 	fmt.Println(text)
+	println()
+	println()
 	//fmt.Println("--------------分词结果------------------------------------------------------------------------------------------------------------------")
 	result := single_word_seg(text)
+	println()
+	println()
 	fmt.Println(result)
+
 	fmt.Println("--------------分词结果------------------------------------------------------------------------------------------------------------------")
+	println()
+	println()
 	result = dict_seg(result)
+	fmt.Println(result)
+	println()
 	for _, ele := range result{
 		fmt.Printf("%s ", ele.Text)
 	}
