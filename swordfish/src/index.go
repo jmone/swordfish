@@ -3,6 +3,10 @@ package main
 import(
 	"fmt"
 	"strconv"
+	"path/filepath"
+	"encoding/gob"
+	"io/ioutil"
+	"bytes"
 )
 
 type DocWordsMapping struct{
@@ -11,16 +15,39 @@ type DocWordsMapping struct{
 }
 type Index map[string][]string
 
-func  readIndex(){
-
+func readIndex(path string) Index{
+	matches, err := filepath.Glob(path)
+	if err != nil{
+		fmt.Println(err.Error())
+	}else if matches == nil{
+		fmt.Println(path+" is not exists.")
+	}
+	index := make(Index)
+	bytesIndex, _ := ioutil.ReadFile(path)
+	bufIndex := bytes.NewBuffer(bytesIndex)
+	dec := gob.NewDecoder(bufIndex)
+	err = dec.Decode(&index)
+	return index
 }
 
 func updateIndex(){
 
 }
 
-func writeIndex(){
-
+func writeIndex(index Index, path string) bool{
+	var w bytes.Buffer
+	enc := gob.NewEncoder(&w)
+	err := enc.Encode(index)
+	if err != nil{
+		fmt.Println(err.Error())
+		return false
+	}
+	err = ioutil.WriteFile(path, w.Bytes(), 0644)
+	if err != nil{
+		fmt.Println(err.Error())
+		return false
+	}
+	return true
 }
 
 func main(){
@@ -48,4 +75,12 @@ func main(){
 		index["test"] = append(index["test"], doc2word)
 	}
 	fmt.Println(index)
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+	i := readIndex("swordfish.index")
+	fmt.Println(i)
+	i["China"] = []string{"中国", "Chinese", "zhong guo"}
+	writeIndex(i, "swordfish.index")
 }

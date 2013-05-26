@@ -4,7 +4,7 @@ import(
 	"fmt"
 	"strings"
 	"net"
-	"strconv"
+	_"strconv"
 )
 
 func main(){
@@ -24,7 +24,7 @@ func main(){
 		index["hello"] = []string{"1","2","3"}
 		index["test"] = []string{"5","7", "9"}
 		go func(c net.Conn, index map[string][]string){
-			fmt.Println(index)
+			//fmt.Println(index)
 			buffer := make([]byte, 10)
 			size, err := c.Read(buffer)
 			if err != nil{
@@ -34,14 +34,15 @@ func main(){
 			word := string(buffer[:size])
 			word = strings.Replace(word, "\n", "", -1)
 			word = strings.Replace(word, "\r", "", -1)
-			fmt.Println("accept:"+word)
-			fmt.Println(index[word])
-			wlen, werr := c.Write([]byte("123"))
+			//fmt.Println("accept:"+word)
+			//fmt.Println(index[word])
+			_, werr := c.Write([]byte("123\n"))
 			if werr != nil{
 				fmt.Println(werr.Error())
 			}else{
-				fmt.Println("send "+strconv.Itoa(wlen))
+				//fmt.Println("send "+strconv.Itoa(wlen))
 			}
+			//defer conn.Close()
 		}(conn, index)
 	}
 }
