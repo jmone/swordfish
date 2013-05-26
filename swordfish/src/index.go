@@ -15,6 +15,8 @@ type DocWordsMapping struct{
 }
 type Index map[string][]string
 
+//读取索引文件
+//将索引文件读到内存
 func readIndex(path string) Index{
 	matches, err := filepath.Glob(path)
 	if err != nil{
@@ -30,10 +32,26 @@ func readIndex(path string) Index{
 	return index
 }
 
-func updateIndex(){
+//更新索引
+//向主索引中添加新的DocWordsMapping
+func updateIndex(mapping DocWordsMapping, index Index){
 
 }
 
+//合并索引
+//将新索引newIndex与index合并
+func mergeIndex(index Index, newIndex Index) Index{
+
+}
+
+//清除废弃的索引
+//将废弃的索引wasteIndex从主索引中清除
+func clearIndex(index Index, wasteIndex Index) Index{
+
+}
+
+//持久化
+//将内存中的索引内容存储到文件
 func writeIndex(index Index, path string) bool{
 	var w bytes.Buffer
 	enc := gob.NewEncoder(&w)
