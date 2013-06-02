@@ -2,7 +2,6 @@ package main
 
 import(
 	"fmt"
-	"strconv"
 	"path/filepath"
 	"encoding/gob"
 	"io/ioutil"
@@ -10,7 +9,7 @@ import(
 )
 
 type DocWordsMapping struct{
-	Docid uint
+	Docid string 
 	Words []string
 }
 type Index map[string][]string
@@ -36,7 +35,7 @@ func readIndex(path string) Index{
 //向主索引中添加新的DocWordsMapping
 func updateIndex(mapping DocWordsMapping, index Index) Index{
 	for _, word := range mapping.Words{
-		index[word] = append(index[word], strconv.Itoa(int(mapping.Docid)))
+		index[word] = append(index[word], mapping.Docid)
 	}
 	//fmt.Println(mapping.Words)
 	return index
@@ -77,8 +76,9 @@ func writeIndex(index Index, path string) bool{
 	return true
 }
 
+/*
 func main(){
-	doc := DocWordsMapping{Docid:1000, Words:[]string{"hello", "world"}}
+	doc := DocWordsMapping{Docid:"1000", Words:[]string{"hello", "world"}}
 	//fmt.Println(doc)
 	i := readIndex("sf.index")
 	fmt.Println(i)
@@ -87,3 +87,4 @@ func main(){
 	i["China"] = []string{"1002", "1220", "4554"}
 	writeIndex(i, "sf.index")
 }
+*/

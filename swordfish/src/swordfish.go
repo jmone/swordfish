@@ -40,6 +40,7 @@ func initConfig(){
 }
 
 type OrigialDoc struct{
+	DocId bson.ObjectId "_id"
 	Title string
 }
 func getOrigialDocCount() uint{
@@ -62,12 +63,19 @@ func getOrigialDoc() []OrigialDoc{
 func main(){
 	count := getOrigialDocCount()
 	fmt.Println("待索引数据量：" + strconv.Itoa(int(count)))
+	i := readIndex("sf.index")
 	docs := getOrigialDoc()
 	for _, doc := range docs{
-		//fmt.Println(doc.Title)
 		text := filter(doc.Title)
 		result := single_word_seg(text)
 		result = dict_seg(result)
-		fmt.Println(result)
+		dwp := new(DocWordsMapping)
+		for _, word := range result{
+			dwp.Words = append(dwp.Words, word.Text)
+		}
+		dwp.Docid = doc.DocId.Hex()
+		fmt.Println(dwp)
+		i = updateIndex(*dwp, i)
 	}
+	writeIndex(i, "sf.index")
 }
