@@ -5,6 +5,7 @@ import(
 	"labix.org/v2/mgo/bson"
 )
 type Person struct {
+	ObjectId bson.ObjectId "_id"
 	Name string
 	Phone string
 }
@@ -17,7 +18,7 @@ func main() {
 	// Optional. Switch the session to a monotonic behavior. 
 	session.SetMode(mgo.Monotonic, true)
 	c := session.DB("test").C("people")
-	err = c.Insert(&Person{"Ale", "+55 53 8116 9639"}, &Person{"Cla", "+55 53 8402 8510"})
+	err = c.Insert(&Person{bson.NewObjectId(), "Ale", "+55 53 8116 9639"}, &Person{bson.NewObjectId(), "Cla", "+55 53 8402 8510"})
 	if err != nil {
 		panic(err)
 	}
@@ -27,4 +28,5 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Phone:", result.Phone)
+	fmt.Println("ObjectId:", result.ObjectId)
 }

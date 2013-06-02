@@ -136,7 +136,7 @@ func init_dict(path string) map[string]int{
 		word = strings.Replace(word, "\n", "", -1)
 		dict[word] = 1
 	}
-	fmt.Printf("%v\n\n\n", len(dict))
+	//fmt.Printf("%v\n\n\n", len(dict))
 	return dict
 }
 func add_new_words(dict map[string]int, words []string) map[string]int{
@@ -214,7 +214,7 @@ func dict_seg(data []segmentationData) []segmentationData{
 }
 
 
-
+/*
 func main(){
 	input, err := ioutil.ReadFile("./input.txt")
 	if err != nil{
@@ -244,9 +244,8 @@ func main(){
 		fmt.Printf("%s ", ele.Text)
 	}
 	println()
-	/*
 	fmt.Println("--------------分词结果------------------------------------------------------------------------------------------------------------------")
 	result = []segmentationData{{Text:"建筑行业偷工减料、以次充好的乱象由来已久，最新曝出的一出是山东潍坊用麻刚沙盖楼。", IsFinal:false}, {Text:"小米科技是一家互联网企业", IsFinal:false}}
 	fmt.Println(dict_seg(result))
-	*/
 }
+*/
