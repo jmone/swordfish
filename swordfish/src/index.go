@@ -8,11 +8,14 @@ import(
 	"bytes"
 )
 
+type Word string
+type Docid string
+type Frequency uint
 type DocWordsMapping struct{
-	Docid string 
-	Words []string
+	Id Docid
+	Words []Word
 }
-type Index map[string][]string
+type Index map[Word]map[Docid]Frequency
 
 //读取索引文件
 //将索引文件读到内存
@@ -35,9 +38,11 @@ func readIndex(path string) Index{
 //向主索引中添加新的DocWordsMapping
 func updateIndex(mapping DocWordsMapping, index Index) Index{
 	for _, word := range mapping.Words{
-		index[word] = append(index[word], mapping.Docid)
+		if index[word] == nil{
+			index[word] = make(map[Docid]Frequency)
+		}
+		index[word][mapping.Id]++
 	}
-	//fmt.Println(mapping.Words)
 	return index
 }
 
@@ -78,13 +83,13 @@ func writeIndex(index Index, path string) bool{
 
 /*
 func main(){
-	doc := DocWordsMapping{Docid:"1000", Words:[]string{"hello", "world"}}
-	//fmt.Println(doc)
+	doc := DocWordsMapping{Id:"1000", Words:[]Word{"hello", "world"}}
+	fmt.Println(doc)
 	i := readIndex("sf.index")
 	fmt.Println(i)
 	i = updateIndex(doc, i)
 	fmt.Println(i)
-	i["China"] = []string{"1002", "1220", "4554"}
+	i["girls"] = map[Docid]Frequency{"Doc001":1, "Doc002":5}
 	writeIndex(i, "sf.index")
 }
 */

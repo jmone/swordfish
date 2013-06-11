@@ -66,10 +66,12 @@ func main(){
 		docs := []string{}
 		words := []string{}
 		for _, word := range result{
-			//fmt.Println(word.Text)
-			//fmt.Println(i[word.Text])
-			for _, docid := range i[word.Text]{
-				docs = append(docs, docid)
+			fmt.Println(word.Text)
+			//fmt.Println(i[Word(word.Text)])
+			for docid, frequency := range i[Word(word.Text)]{
+				docs = append(docs, string(docid))
+				fmt.Print(docid+":")
+				fmt.Println(frequency)
 			}
 			words = append(words, word.Text)
 		}

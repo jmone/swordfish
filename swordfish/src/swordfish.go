@@ -71,11 +71,12 @@ func main(){
 		result = dict_seg(result)
 		dwp := new(DocWordsMapping)
 		for _, word := range result{
-			dwp.Words = append(dwp.Words, word.Text)
+			dwp.Words = append(dwp.Words, Word(word.Text))
 		}
-		dwp.Docid = doc.DocId.Hex()
+		dwp.Id = Docid(doc.DocId.Hex())
 		fmt.Println(dwp)
 		i = updateIndex(*dwp, i)
 	}
 	writeIndex(i, "sf.index")
+	fmt.Println(i)
 }
