@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'比比价',
+            'defaultController' => 'Index',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -36,16 +37,15 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
+				'search'=>'index/search',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
 		/*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -58,6 +58,7 @@ return array(
 			'username' => 'root',
 			'password' => '32100321',
 			'charset' => 'utf8',
+			'tablePrefix' => '',
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

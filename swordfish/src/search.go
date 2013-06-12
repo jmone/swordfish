@@ -78,6 +78,8 @@ func main(){
 		data := map[string][]string{}
 		data["docsid"] = docs
 		data["words"] = words
+		data["original"] = append(data["original"], input)
+		data["original"] = append(data["original"], "100")
 		fmt.Println(data)
 		var w bytes.Buffer
 		enc := json.NewEncoder(&w)
