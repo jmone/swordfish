@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="/statics/css/reset.css" />
 <link rel="stylesheet" href="/statics/css/login.css" />
 <script src="/statics/js/jquery.min.js"></script>
-<script type="text/javascript"><!--
-
+<script type="text/javascript">
+<!--
 $(function(){
 	$('#username').focus();
 	$('#formLogin').submit(function(){
@@ -218,7 +218,8 @@ $(function(){
 	});
 })
 //
---></script>
+-->
+</script>
 <!--[if !IE 7]>
 	<style type="text/css">
 		#sticky-footer {display:table;height:100%}

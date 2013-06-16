@@ -28,10 +28,13 @@ class IndexController extends Controller {
         }
         socket_close($socket);
         //取出对应商品
+        /*
         $funcGetMongoId = function($idStr) {
                     $mongoid = new MongoId($idStr);
                     return $mongoid;
                 };
+        */
+        $funcGetMongoId = create_function('$idStr', '$mongoid = new MongoId($idStr);return $mongoid;');
         $conn = new Mongo();
         $db = $conn->swordfish;
         $collection = $db->product;
