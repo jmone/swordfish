@@ -17,13 +17,13 @@
                 <div class="container-fluid">
                     <a class="brand" href="#">Swordfish 管理后台</a>
                     <ul class="nav">
-                        <li<?php if( in_array(Yii::app()->controller->id, array('default')) ){echo ' class="active"';} ?>><a href="/backend/default"><i class="icon-home"></i>首页</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('webSearchFavorite')) ){echo ' class="active"';} ?>><a href="/backend/webSearchFavorite/admin"><i class="icon-sitemap"></i>内容管理</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('webExtDict', 'webStopWord')) ){echo ' class="active"';} ?>><a href="/backend/webExtDict/admin"><i class="icon-random"></i>字典管理</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('webUser')) ){echo ' class="active"';} ?>><a href="/backend/webUser/admin"><i class="icon-user-md"></i>用户管理</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-bar-chart"></i>统计</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-eye-open"></i>监控</a></li>
-                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-wrench"></i>系统设置</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('default')) ){echo ' class="active"';} ?>><a href="/backend/default"><i class="icon-home"></i> 首页</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('webSearchFavorite')) ){echo ' class="active"';} ?>><a href="/backend/webSearchFavorite/admin"><i class="icon-sitemap"></i> 内容管理</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('webExtDict', 'webStopWord')) ){echo ' class="active"';} ?>><a href="/backend/webExtDict/admin"><i class="icon-random"></i> 字典管理</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('webUser')) ){echo ' class="active"';} ?>><a href="/backend/webUser/admin"><i class="icon-user-md"></i> 用户管理</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-bar-chart"></i> 统计</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-eye-open"></i> 监控</a></li>
+                        <li<?php if( in_array(Yii::app()->controller->id, array('system')) ){echo ' class="active"';} ?>><a href="" onclick="alert('developing ...'); return false;"><i class="icon-wrench"></i> 系统设置</a></li>
                     </ul>
                     <!-- the new toggle buttons -->
                     <ul class="nav pull-right">
