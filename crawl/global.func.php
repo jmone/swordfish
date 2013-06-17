@@ -25,5 +25,25 @@ function url_exists($url){
 	$count = mysql_result($result, 0);
 	return $count;
 }
-
+function parse_links($content = ''){
+    $links = array();
+    if(empty($content)){
+        return $links;
+    }
+    if(preg_match_all('|<a href="([^\"]*)"|isU', $content, $matches)){
+        foreach ($matches[1] as $link){
+            if(substr($link, 0, 4) == 'http'){
+                array_push($links, $link);
+            }
+        }
+    }
+    if(preg_match_all('|<a href=\'([^\']*)\'|isU', $content, $matches)){
+        foreach ($matches[1] as $link){
+            if(substr($link, 0, 4) == 'http'){
+                array_push($links, $link);
+            }
+        }
+    }
+    return $links;
+}
 ?>

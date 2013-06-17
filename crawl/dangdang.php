@@ -15,7 +15,7 @@ if(empty($uncrawled_urls)){
 
 while ($url = array_pop($uncrawled_urls)){
     if(APP_DEBUY){
-        echo "$url\n";
+        echo "crawl:$url\n";
     }
 	$content = callback($url);
 	$content = iconv('GBK', 'UTF-8', $content);
