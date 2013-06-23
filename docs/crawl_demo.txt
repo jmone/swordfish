@@ -1,0 +1,50 @@
+大家好，今天为大家演示爬虫的工作情形~
+
+爬虫会自动爬取网站，将我们需要的产品信息入库。
+
+我们先去mongo中清除原来的数据，然后启动爬虫，看看效果~
+
+我们的数据存储在swordfish库里面，进去清理掉原来的数据吧
+好了，库已经删除了
+
+启动爬虫看看效果~
+看仔细了哦，爬虫抓去速度比较快，终端刷新可能看不清楚~
+
+Size of $uncrawled urls:558; Size of $crawled urls:1071
+为了标记，我们做了这么的输出，未处理的页面558个，处理了的页面1071个
+速度还可以的~
+
+恶心的列表页及评论页~
+咱们没有存储这个对咱们系统无用的页面~
+
+刚才注意到，有抓取到数据，咱们去库里面看看~
+
+> show dbs;
+local	0.078125GB
+test	0.203125GB
+> show dbs;
+local	0.078125GB
+swordfish	0.203125GB
+test	0.203125GB
+
+自动建库，进去看看数据
+> use swordfish
+switched to db swordfish
+> show collections
+product
+system.indexes
+> db.product.find()
+{ "_id" : ObjectId("51c7384b1ea36ca562dbff64"), "title" : "《盗墓笔记Q版全彩小哥日记本》", "sale_price" : "11.60", "original_price" : "16.80", "url" : "http://product.dangdang.com/product.aspx?product_id=23250344", "update_time" : 1372010571, "image" : "http://img34.ddimg.cn/95/25/23250344-1_w.jpg", "reindex" : true }
+> db.product.find()
+{ "_id" : ObjectId("51c7384b1ea36ca562dbff64"), "title" : "《盗墓笔记Q版全彩小哥日记本》", "sale_price" : "11.60", "original_price" : "16.80", "url" : "http://product.dangdang.com/product.aspx?product_id=23250344", "update_time" : 1372010571, "image" : "http://img34.ddimg.cn/95/25/23250344-1_w.jpg", "reindex" : true }
+>
+
+好了，演示就到这里~
+
+解释一下，由于抓取的时候，会遇到许多列表页，评论页面，所以到了后续，产品信息才会进来，所以刚才大家看到的抓取数据很少~
+Size of $uncrawled urls:5526; Size of $crawled urls:9458
+
+前一万多条，真正的产品页才一个
+
+好了，演示就到这里~
+谢谢~
