@@ -8,7 +8,7 @@ import(
 	"strings"
 	"net"
 	"encoding/json"
-	_ "strconv"
+	"strconv"
 	"bytes"
 )
 
@@ -59,7 +59,18 @@ func main(){
 			continue
 		}
 		input := string(buffer[:size])
-		input = strings.Replace(input, "\n", "", -1)
+		//数据传过来需要json解码
+		//dec := json.NewDecoder(buffer[:size])
+		dec := json.NewDecoder(strings.NewReader(input))
+		type inputDataStruct struct{
+			Input string
+			Page int
+			Size int
+		}
+		var inputData inputDataStruct
+		err = dec.Decode(&inputData)
+		fmt.Printf("%s %d %d\n-----------------\n", inputData.Input, inputData.Page, inputData.Size)
+		input = strings.Replace(inputData.Input, "\n", "", -1)
 		result := single_word_seg(input)
 		result = dict_seg(result)
 
@@ -76,10 +87,22 @@ func main(){
 			words = append(words, word.Text)
 		}
 		data := map[string][]string{}
-		data["docsid"] = docs
+		//data["docsid"] = docs[(inputData.Page-1)*inputData.Size : inputData.Size]
+		startIndex := (inputData.Page-1)*inputData.Size;
+		endIndex := inputData.Page*inputData.Size;
+		if(startIndex > len(docs)){
+			data["docsid"] = docs[0:0]
+		}else{
+			if(endIndex > len(docs)){
+				endIndex = len(docs)
+			}
+			data["docsid"] = docs[startIndex : endIndex]
+		}
 		data["words"] = words
 		data["original"] = append(data["original"], input)
-		data["original"] = append(data["original"], "100")
+		data["original"] = append(data["original"], strconv.Itoa(len(docs)))
+		data["original"] = append(data["original"], strconv.Itoa(inputData.Page))
+		data["original"] = append(data["original"], strconv.Itoa(inputData.Size))
 		fmt.Println(data)
 		var w bytes.Buffer
 		enc := json.NewEncoder(&w)

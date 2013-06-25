@@ -10,10 +10,16 @@ class IndexController extends Controller {
     }
 
     public function actionSearch() {
-        $sendStr = trim($_GET["k"]);
-        if (empty($sendStr)) {
-            $this->rediect('index');
+        $input = trim($_GET["k"]);
+	$page = intval($_GET["page"]) > 0 ? intval($_GET["page"]) : 1;
+        if (empty($input)) {
+            $this->redirect('index');
         }
+	$sendStr = json_encode(array(
+		'input' => $input,
+		'page' => $page,
+		'size' => 10,
+	));
         $this->pageTitle = $sendStr."的搜索结果";
         //执行搜索
         $socket = socket_create(AF_INET, SOCK_STREAM, getprotobyname("tcp"));

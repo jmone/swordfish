@@ -46,6 +46,19 @@ if(empty($products)){
                 <?php
                 }
                 ?>
+		<tr>
+		  <td colspan=4>
+<div class="pagination">
+  <ul>
+	<?php
+		for($i = 1; $i <= ceil($searchData['original'][1]/$searchData['original'][3]); $i++){
+    			echo "<li><a href=\"/search?k={$searchData['original'][0]}&page=$i\">{$i}</a></li>";
+		}
+	?>
+  </ul>
+</div>
+		  </td>
+		</tr>
             </tbody>
         </table>
     </div>
