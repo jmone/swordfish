@@ -2,11 +2,11 @@
 
 class IndexController extends Controller {
 
-    public $layout = "//index/column";
+    public $layout = "//chagou/main";
 
     public function actionIndex() {
         $this->pageTitle = "比价搜索";
-        $this->render("index");
+        $this->render("//chagou/index");
     }
 
     public function actionSearch() {
@@ -57,7 +57,7 @@ class IndexController extends Controller {
 //        print_r($products);
 //        echo "</pre>";
         //渲染页面
-        $this->render('list', array(
+        $this->render('//chagou/list', array(
             'searchData' => $data,
             'products' => $products,
         ));
