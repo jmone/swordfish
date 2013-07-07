@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>查询列表页 - 查购网</title>
+<title><?php echo CHtml::encode($this->pageTitle); ?> - 查购网 - chagou.com</title>
 <link type="text/css" href="/statics/style.css" rel="stylesheet" />
 <script type="text/javascript" src="/statics/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/statics/chagou_ui.js" charset="utf-8"></script>
@@ -31,9 +31,22 @@
     <li>苏宁</li>
     <li>国美</li>
     <ul>
-    <li><a href="login.html">登录</a></li>
-    <li>|</li>
-    <li>注册</li>
+        <?php
+        if (empty(Yii::app()->session['user'])) {
+        ?>
+        <li><a href="/user/login">登录</a></li>
+        <li>|</li>
+        <li><a href="/user/register">注册</a></li>
+        <?php
+        } else {
+            //echo Yii::app()->session['user']['email'];
+        ?>
+        <li><a href="/user/center">个人中心</a></li>
+        <li>|</li>
+        <li><a href="/user/logout">注销</a></li>
+        <?php
+        }
+        ?>
     </ul>
   </ul>
 </div>

@@ -79,7 +79,8 @@ $(function(){
 		  });
 		}
 		  var tc_id = $(this).attr("id");
-		  var tc_show = tc_id + ".html";
+		  //var tc_show = tc_id + ".html";
+		  var tc_show = "/product/get/id/"+tc_id;
 		$("#tishi").html("<div id='tc_content'><div class='tc_content_close'></div><iframe src=" + tc_show + " width='900px' height='500px' scrolling='no' marginheight='0' marginwidth='0' frameborder='0' border='0'></iframe></div><div id='tc_bj' style='opacity: 0.5;'></div>");
 		item_remove();
 	  });

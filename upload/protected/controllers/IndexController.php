@@ -20,7 +20,7 @@ class IndexController extends Controller {
 		'page' => $page,
 		'size' => 10,
 	));
-        $this->pageTitle = $sendStr."的搜索结果";
+        $this->pageTitle = $input."的搜索结果";
         //执行搜索
         $socket = socket_create(AF_INET, SOCK_STREAM, getprotobyname("tcp"));
         if (socket_connect($socket, "127.0.0.1", 8080)) {
@@ -49,12 +49,14 @@ class IndexController extends Controller {
                 '$in' => array_map($funcGetMongoId, $data['docsid']),
             ),
         ));
+        $conn->close();
         $products = array();
         while($product = $cursor->getNext()){
             $products[] = $product;
         }
 //        echo "<pre>";
 //        print_r($products);
+//        var_dump($products[0]['_id']->{'$id'});
 //        echo "</pre>";
         //渲染页面
         $this->render('//chagou/list', array(

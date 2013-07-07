@@ -2,7 +2,7 @@
 
 class UserController extends Controller {
 
-    public $layout = "//index/column";
+    public $layout = "//chagou/main";
 
     public function actionRegister() {
         $this->pageTitle = "注册用户";
@@ -92,6 +92,10 @@ class UserController extends Controller {
                 'message' => '功能开发中！'
             ));
             Yii::app()->end();
+    }
+    
+    public function actionCenter(){
+        $this->render('/searchFavorite/list');
     }
 }
 

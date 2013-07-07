@@ -2,7 +2,7 @@
 
 class SearchFavoriteController extends Controller {
 
-    public $layout = "//index/column";
+    public $layout = "//chagou/main";
 
     public function init(){
         //判断用户是否为登录状态

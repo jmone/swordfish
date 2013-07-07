@@ -38,6 +38,21 @@
       <li class="yihao">一号店</li>
     </ul>
   </div>
+    <div class="favorite_share">
+        <!--同商品不同商城推荐-->
+        <p><a href="/searchFavorite/add?k=<?php echo $searchData['original'][0];?>" target="_blank">立即收藏该搜索结果</a></p>
+        <!-- JiaThis Button BEGIN -->
+        <div class="jiathis_style">
+            <span class="jiathis_txt">分享到：</span>
+            <a class="jiathis_button_icons_1"></a>
+            <a class="jiathis_button_icons_2"></a>
+            <a class="jiathis_button_icons_3"></a>
+            <a class="jiathis_button_icons_4"></a>
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        </div>
+        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+        <!-- JiaThis Button END -->
+    </div>
 </div>
 <!--左面 end--> 
 <!--右面-->
@@ -56,7 +71,7 @@ if(empty($products)){
                 ?>
   <!--内容循环-->
   <div class="list_box">
-    <div class="list_box_img"><img width="80" height="80" src="http://img.rehui.net/upfiles/2013/06/180337_1-150x150.jpg" onerror="this.src='/statics/images/none.gif'" class="attachment-thumbnail wp-post-image" alt="" title="直达链接"></div>
+    <div class="list_box_img"><img width="80" height="80" src="<?php echo $product['image'];?>" onerror="this.src='/statics/images/none.gif'" class="attachment-thumbnail wp-post-image" alt="" title="直达链接"></div>
     <div class="list_box_tit">
       <ul>
         <li>
@@ -64,7 +79,7 @@ if(empty($products)){
         </li>
         <li>商品价格：<span>¥ <?php echo $product['sale_price'];?></span></li>
         <li class="fenlei">商品分类：<a href="/">数码相机</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/">苏宁易购</a></li>
-        <li class="gobuy"> <a rel="nofollow" href="#" id="tanchu02" class="tc_js">查看详情</a> <a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a> </li>
+        <li class="gobuy"> <a rel="nofollow" href="#" id="<?php echo $product['_id']->{'$id'};?>" class="tc_js">查看详情</a> <a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a> </li>
       </ul>
     </div>
   </div>
