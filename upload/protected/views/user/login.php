@@ -16,7 +16,7 @@
     <ul>
         <h2>会员登录</h2>
         <li>邮箱：<p><input type="text" name="user[email]" id="name" size="" class="contact_form_input"></p></li>
-        <li>密码：<p><input type="text" name="user[password]" id="pass" size="40" class="contact_form_input"></p></li>
+        <li>密码：<p><input type="password" name="user[password]" id="pass" size="40" class="contact_form_input"></p></li>
         <li><input type="submit" id="denglu" class="denglu" value="立刻登录"></li>
     </ul>
     </form>
