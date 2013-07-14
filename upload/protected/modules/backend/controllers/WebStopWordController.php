@@ -15,7 +15,7 @@ class WebStopWordController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -55,6 +55,10 @@ class WebStopWordController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
+    
+    private function updateTimestamp(){
+        file_put_contents('/home/wwwroot/swordfish/swordfish/src/stopword_updatetime.txt', time());
+    }
 
 	/**
 	 * Creates a new model.
@@ -70,8 +74,10 @@ class WebStopWordController extends Controller
 		if(isset($_POST['WebStopWord']))
 		{
 			$model->attributes=$_POST['WebStopWord'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+                $this->updateTimestamp();
+                $this->redirect(array('view','id'=>$model->id));
+            }
 		}
 
 		$this->render('create',array(
@@ -94,8 +100,10 @@ class WebStopWordController extends Controller
 		if(isset($_POST['WebStopWord']))
 		{
 			$model->attributes=$_POST['WebStopWord'];
-			if($model->save())
+			if($model->save()){
+                $this->updateTimestamp();
 				$this->redirect(array('view','id'=>$model->id));
+            }
 		}
 
 		$this->render('update',array(
@@ -113,8 +121,10 @@ class WebStopWordController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
+		if(!isset($_GET['ajax'])){
+            $this->updateTimestamp();
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
 	}
 
 	/**

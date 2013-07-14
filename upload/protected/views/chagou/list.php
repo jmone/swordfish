@@ -75,7 +75,7 @@ if(empty($products)){
     <div class="list_box_tit">
       <ul>
         <li>
-          <h2><a href="<?php echo $product['url'];?>" target="_blank" title="现价：￥<?php echo $product['sale_price'];?>， 原价：￥<?php echo $product['original_price'];?>"><?php echo $product['title'];?></a></h2>
+          <h2><a href="<?php echo $product['url'];?>" target="_blank" title="现价：￥<?php echo $product['sale_price'];?>， 原价：￥<?php echo $product['original_price'];?>" class="product_title"><?php echo $product['title'];?></a></h2>
         </li>
         <li>商品价格：<span>¥ <?php echo $product['sale_price'];?></span></li>
         <li class="fenlei">商品分类：<a href="/">数码相机</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/">苏宁易购</a></li>
@@ -122,3 +122,18 @@ if(empty($products)){
 <!--弹出提示-->
 <div id="tishi"></div>
 <!--弹出提示 end-->
+
+<script language="javascript">
+function highlight(key) {
+        var key = key.split('|');
+        var titles = document.getElementsByClassName("product_title");
+        for (var i=0; i<key.length; i++){
+                var pa = new RegExp("("+key[i]+")","ig");
+                for(var j=0; j<titles.length; j++){
+                        titles[j].innerHTML = titles[j].innerHTML.replace(pa, "<span style=\"color:green;\">"+key[i]+"</span>");
+                }
+        }
+}
+var keystr = '<?php echo implode('|', $searchData['words']);?>';
+highlight(keystr);
+</script>
