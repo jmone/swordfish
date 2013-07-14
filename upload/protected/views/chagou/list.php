@@ -126,7 +126,7 @@ if(empty($products)){
 <script language="javascript">
 function highlight(key) {
         var key = key.split('|');
-        var titles = document.getElementsByClassName("product_title");
+        var titles = document.getElementsByClassName('product_title');
         for (var i=0; i<key.length; i++){
                 var pa = new RegExp("("+key[i]+")","ig");
                 for(var j=0; j<titles.length; j++){
