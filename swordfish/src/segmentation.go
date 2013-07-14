@@ -53,6 +53,7 @@ func filter(text string) string{
 	text = strings.Replace(text, "\v", " ", -1);
 	text = strings.Replace(text, "\r\n", " ", -1);
 	text = strings.Replace(text, "　", " ", -1);
+	text = strings.ToLower(text)
 	return text
 }
 

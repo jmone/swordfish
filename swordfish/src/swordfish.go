@@ -44,7 +44,7 @@ type OrigialDoc struct{
 	Title string
 }
 func getOrigialDocCount() uint{
-	return 100
+	return 500
 }
 func getOrigialDoc() []OrigialDoc{
 	session, err := mgo.Dial("127.0.0.1")
@@ -55,7 +55,7 @@ func getOrigialDoc() []OrigialDoc{
 	session.SetMode(mgo.Monotonic, true)
 	c := session.DB("swordfish").C("product")
 	result := []OrigialDoc{}
-	err = c.Find(bson.M{}).Limit(100).All(&result)
+	err = c.Find(bson.M{}).Limit(300).All(&result)
 	//fmt.Println(result)
 	return result
 }

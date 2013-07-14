@@ -40,6 +40,11 @@ func work(){
 }
 
 func main(){
+	var stopwords Stopwords
+	stopwords.Words = make(map[string] bool)
+	stopwords.init()
+	go stopwords.update()
+
 	i := readIndex("sf.index")
 	ln, err := net.Listen("tcp", ":8080")
 	if err != nil{
@@ -70,13 +75,18 @@ func main(){
 		var inputData inputDataStruct
 		err = dec.Decode(&inputData)
 		fmt.Printf("%s %d %d\n-----------------\n", inputData.Input, inputData.Page, inputData.Size)
-		input = strings.Replace(inputData.Input, "\n", "", -1)
+		//input = strings.Replace(inputData.Input, "\n", "", -1)
+		input = filter(inputData.Input)
 		result := single_word_seg(input)
 		result = dict_seg(result)
 
 		docs := []string{}
 		words := []string{}
 		for _, word := range result{
+			if(stopwords.IsStopword(word.Text) || word.Text == " "){
+				fmt.Println(word.Text + " is stopword.")
+				continue
+			}
 			fmt.Println(word.Text)
 			//fmt.Println(i[Word(word.Text)])
 			for docid, frequency := range i[Word(word.Text)]{
