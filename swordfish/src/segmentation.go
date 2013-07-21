@@ -22,6 +22,14 @@ type segmentationData struct{
 	Text string
 	IsFinal bool
 }
+var dict map[string]int
+
+func init(){
+	dict = init_dict("main.dict")
+
+	news_words := []string{"谷歌", "触控屏", "新浪", "美国", "麻刚沙", "毛利率"}
+	dict = add_new_words(dict, news_words)
+}
 
 //文本特殊字符转换及过滤
 func filter(text string) string{
@@ -151,10 +159,6 @@ func add_new_words(dict map[string]int, words []string) map[string]int{
 
 //字典切分
 func dict_seg(data []segmentationData) []segmentationData{
-	dict := init_dict("main.dict")
-	news_words := []string{"谷歌", "触控屏", "新浪", "美国", "麻刚沙", "毛利率"}
-	dict = add_new_words(dict, news_words)
-
 	seg_result := []segmentationData{}
 	for _, ele := range data{
 		if ele.IsFinal{
@@ -213,7 +217,6 @@ func dict_seg(data []segmentationData) []segmentationData{
 	}
 	return seg_result
 }
-
 
 /*
 func main(){
