@@ -93,7 +93,7 @@ func main(){
 			for _, word := range result{
 				dwp.Words = append(dwp.Words, Word(word.Text))
 			}
-			//dwp.Id = Docid(doc.DocId.Hex())
+			dwp.Id = Docid(doc.DocId.Hex())
 			fmt.Println(dwp)
 			i = updateIndex(*dwp, i)
 			fmt.Println(doc)

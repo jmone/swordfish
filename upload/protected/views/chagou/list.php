@@ -67,7 +67,8 @@ if(empty($products)){
 }else{
 ?>
                 <?php
-                foreach($products as $product){
+                foreach($searchData['docsid'] as $docid){
+                    $product = $products[$docid];
                 ?>
   <!--内容循环-->
   <div class="list_box">

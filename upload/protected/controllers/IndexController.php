@@ -52,7 +52,7 @@ class IndexController extends Controller {
         $conn->close();
         $products = array();
         while($product = $cursor->getNext()){
-            $products[] = $product;
+            $products[$product['_id']->{'$id'}] = $product;
         }
 //        echo "<pre>";
 //        print_r($products);

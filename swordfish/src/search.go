@@ -51,6 +51,7 @@ func main(){
 		//
 	}
 	defer ln.Close()
+
 	for{
 		conn, err := ln.Accept()
 		if err != nil{
@@ -65,7 +66,6 @@ func main(){
 		}
 		input := string(buffer[:size])
 		//数据传过来需要json解码
-		//dec := json.NewDecoder(buffer[:size])
 		dec := json.NewDecoder(strings.NewReader(input))
 		type inputDataStruct struct{
 			Input string
@@ -75,7 +75,7 @@ func main(){
 		var inputData inputDataStruct
 		err = dec.Decode(&inputData)
 		fmt.Printf("%s %d %d\n-----------------\n", inputData.Input, inputData.Page, inputData.Size)
-		//input = strings.Replace(inputData.Input, "\n", "", -1)
+		//分词处理
 		input = filter(inputData.Input)
 		result := single_word_seg(input)
 		result = dict_seg(result)
@@ -91,21 +91,31 @@ func main(){
 			//fmt.Println(i[Word(word.Text)])
 			for docid, frequency := range i[Word(word.Text)]{
 				docs = append(docs, string(docid))
-				fmt.Print(docid+":")
-				fmt.Println(frequency)
+				//fmt.Print(docid+":")
+				//fmt.Println(frequency)
+				docScoreMapping.scoring(string(docid), Word(word.Text), int(frequency))
 			}
 			words = append(words, word.Text)
 		}
+		scoreList.sort()
+		fmt.Println(words)
 		data := map[string][]string{}
 		//data["docsid"] = docs[(inputData.Page-1)*inputData.Size : inputData.Size]
 		startIndex := (inputData.Page-1)*inputData.Size;
 		endIndex := inputData.Page*inputData.Size;
+		//fmt.Println(len(scoreList))
+		docs = []string{}
+		for _, ds := range scoreList{
+			//fmt.Println(ds.Id)
+			docs = append(docs, string(ds.Id))
+		}
 		if(startIndex > len(docs)){
 			data["docsid"] = docs[0:0]
 		}else{
 			if(endIndex > len(docs)){
 				endIndex = len(docs)
 			}
+		fmt.Println(scoreList[startIndex:endIndex])
 			data["docsid"] = docs[startIndex : endIndex]
 		}
 		data["words"] = words
