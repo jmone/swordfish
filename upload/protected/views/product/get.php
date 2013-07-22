@@ -15,6 +15,15 @@
   <!--商品详情 end--> 
   <!--其他相关-->
   <div class="tanchu_box" id="tanchu_box_b">
-    <div class="tanchu_box_img"><a rel="nofollow" href="#" target="_blank"><img width="200" height="200" src="img/eg_pic.jpg" class="attachment-thumbnail wp-post-image" alt="" title="直达链接"></a></div>
+    <?php if(false){?>
+    <div class="tanchu_box_img">
+        <a rel="nofollow" href="#" target="_blank">
+            <img width="200" height="200" src="img/eg_pic.jpg" class="attachment-thumbnail wp-post-image" alt="" title="直达链接"></a>
+    </div>
+    <?php
+    }else{
+        echo "其他商城暂无数据！";
+    }
+    ?>
   </div>
   <!--其他相关 end--> 

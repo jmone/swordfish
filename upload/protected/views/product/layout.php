@@ -29,7 +29,7 @@ $(document).ready(function(){
   <div class="select" id="select">
     <ul>
       <li class="on"><a href="#" title="刚刚发表的信息">商品详情</a></li>
-      <!--li class="off"><a href="#" title="高热度的信息">其他相关</a></li-->
+      <li class="off"><a href="#" title="高热度的信息">其他相关</a></li>
     </ul>
   </div>
   <!--滑动门 end-->
