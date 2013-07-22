@@ -16,13 +16,16 @@
     <div class="price_l"></div>
     <div class="price_r"></div>
     <div id="price_box">
+    <form role="search" method="get" id="searchform" action="/search">
+      <input type="hidden" value="<?php echo $searchData['original'][0];?>" name="k" />
       <div class="price_box_a">价格过滤：价格区间（元）</div>
       <!--筛选空间-->
-      <input id="Slider1" type="slider" name="price" value="9000.5;70000" />
+      <input id="Slider1" type="slider" name="price" value="<?php echo $price;?>" />
       <!--筛选空间--> 
       <script type="text/javascript" charset="utf-8">
       jQuery("#Slider1").slider({ from: 0, to: 100000, step: 50, smooth: true, round: 0, dimension: "&nbsp;￥", skin: "plastic" });
-    </script> 
+      </script>
+    </form>
     </div>
   </div>
   <div class="mall_shop">
@@ -79,7 +82,7 @@ if(empty($products)){
           <h2><a href="<?php echo $product['url'];?>" target="_blank" title="现价：￥<?php echo $product['sale_price'];?>， 原价：￥<?php echo $product['original_price'];?>" class="product_title"><?php echo $product['title'];?></a></h2>
         </li>
         <li>商品价格：<span>¥ <?php echo $product['sale_price'];?></span></li>
-        <li class="fenlei">商品分类：<a href="/">数码相机</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/">苏宁易购</a></li>
+        <li class="fenlei">商品分类：<a href="/">默认分类</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/">当当</a></li>
         <li class="gobuy"> <a rel="nofollow" href="#" id="<?php echo $product['_id']->{'$id'};?>" class="tc_js">查看详情</a> <a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a> </li>
       </ul>
     </div>
