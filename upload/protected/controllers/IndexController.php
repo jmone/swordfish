@@ -15,10 +15,17 @@ class IndexController extends Controller {
         if (empty($input)) {
             $this->redirect('index');
         }
+        $price = trim($_GET['price']);
+        if(empty($price)){
+            $price = "0;100000";
+        }
+        list($startprice, $endprice) = explode(';', $price);
 	$sendStr = json_encode(array(
 		'input' => $input,
 		'page' => $page,
 		'size' => 10,
+        'startprice' => intval($startprice),
+        'endprice' => intval($endprice),
 	));
         $this->pageTitle = $input."的搜索结果";
         //执行搜索
@@ -62,6 +69,7 @@ class IndexController extends Controller {
         $this->render('//chagou/list', array(
             'searchData' => $data,
             'products' => $products,
+            'price' => $price,
         ));
     }
 

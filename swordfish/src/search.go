@@ -27,7 +27,7 @@ func getDocids(){
 
 }
 //动态排序算法，计算doc对应的权重
-
+//score.go
 
 func search(){
 	//requestString := getRequestString()
@@ -65,16 +65,20 @@ func main(){
 			continue
 		}
 		input := string(buffer[:size])
+		//fmt.Println(input)
 		//数据传过来需要json解码
 		dec := json.NewDecoder(strings.NewReader(input))
 		type inputDataStruct struct{
 			Input string
 			Page int
 			Size int
+			Startprice float64
+			Endprice float64
 		}
 		var inputData inputDataStruct
 		err = dec.Decode(&inputData)
 		fmt.Printf("%s %d %d\n-----------------\n", inputData.Input, inputData.Page, inputData.Size)
+		fmt.Printf("%f %f\n-----------------\n", inputData.Startprice, inputData.Endprice)
 		//分词处理
 		input = filter(inputData.Input)
 		result := single_word_seg(input)
@@ -82,6 +86,9 @@ func main(){
 
 		docs := []string{}
 		words := []string{}
+		//清除旧得分统计数据，此处后续可以作成缓存，此处会存在相同得分的记录排序不固定
+		docScoreMapping = make(map[Docid]int)
+		scoreList = []DocScore{}
 		for _, word := range result{
 			if(stopwords.IsStopword(word.Text) || word.Text == " "){
 				fmt.Println(word.Text + " is stopword.")
@@ -98,6 +105,7 @@ func main(){
 			words = append(words, word.Text)
 		}
 		scoreList.sort()
+		scoreList.clear(inputData.Startprice, inputData.Endprice)
 		fmt.Println(words)
 		data := map[string][]string{}
 		//data["docsid"] = docs[(inputData.Page-1)*inputData.Size : inputData.Size]
@@ -115,7 +123,6 @@ func main(){
 			if(endIndex > len(docs)){
 				endIndex = len(docs)
 			}
-		fmt.Println(scoreList[startIndex:endIndex])
 			data["docsid"] = docs[startIndex : endIndex]
 		}
 		data["words"] = words
