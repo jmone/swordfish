@@ -12,7 +12,7 @@ type DocObjectId struct{
 	SalePrice string "sale_price"
 }
 //根据价格筛选结果
-func (sl *ScoreList)clear(startPrice, endPrice float64){
+func (sl *ScoreList)clear(startPrice, endPrice float64, order string){
 	fmt.Println("Price:"+strconv.FormatFloat(startPrice, 'e', 2, 64)+"~"+strconv.FormatFloat(endPrice, 'e', 2, 64))
 
 	session, err := mgo.Dial("127.0.0.1")
@@ -30,10 +30,14 @@ func (sl *ScoreList)clear(startPrice, endPrice float64){
 		err = c.Find(bson.M{"_id": bson.ObjectIdHex(string(sd.Id))}).One(&result)
 		if err == nil{
 			price, _ := strconv.ParseFloat(result.SalePrice, 64)
+			sd.Price = price
 			if price >= startPrice && price <= endPrice{
 				tmp2 = append(tmp2, sd)
 			}
 		}
+	}
+	if(order == "desc" || order == "asc"){
+		tmp2.orderbyprice(order, 30)
 	}
 	*sl = tmp2
 
@@ -67,4 +71,25 @@ func (sl *ScoreList)clear(startPrice, endPrice float64){
 		}
 	}
 	*/
+}
+
+//根据价格排序
+func (sl *ScoreList)orderbyprice(order string, size int){
+	if(len(*sl) < size){
+		size = len(*sl)
+	}
+
+	for i := 0; i < size; i++{
+		for j := i; j < size; j++{
+			if(order == "desc"){
+				if((*sl)[i].Price < (*sl)[j].Price){
+					(*sl)[i], (*sl)[j]= (*sl)[j], (*sl)[i]
+				}
+			}else if(order == "asc"){
+				if((*sl)[i].Price > (*sl)[j].Price){
+					(*sl)[i], (*sl)[j]= (*sl)[j], (*sl)[i]
+				}
+			}
+		}
+	}
 }

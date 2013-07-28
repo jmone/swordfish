@@ -19,13 +19,18 @@ class IndexController extends Controller {
         if(empty($price)){
             $price = "0;100000";
         }
+	$priceorder = trim($_GET['priceorder']);
+	if(!in_array($priceorder, array('asc', 'desc'))){
+		$priceorder = 'null';
+	}
         list($startprice, $endprice) = explode(';', $price);
 	$sendStr = json_encode(array(
 		'input' => $input,
 		'page' => $page,
 		'size' => 10,
-        'startprice' => intval($startprice),
-        'endprice' => intval($endprice),
+        	'startprice' => intval($startprice),
+        	'endprice' => intval($endprice),
+		'priceorder' => $priceorder,
 	));
         $this->pageTitle = $input."的搜索结果";
         //执行搜索
@@ -70,6 +75,7 @@ class IndexController extends Controller {
             'searchData' => $data,
             'products' => $products,
             'price' => $price,
+	    'priceOrder' => $priceorder,
         ));
     }
 

@@ -8,6 +8,7 @@ import(
 type DocScore struct{
 	Id Docid
 	Score int
+	Price float64
 }
 type ScoreList []DocScore
 type DocScoreMapping map[Docid]int

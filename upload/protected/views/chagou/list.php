@@ -28,6 +28,9 @@
     </form>
     </div>
   </div>
+  <div class="favorite_share">
+      价格排序：<a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc">由低到高</a> | <a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc">由高到低</a>
+  </div>
   <div class="mall_shop">
     <h2>商城过滤：</h2>
     <ul>
@@ -111,7 +114,7 @@ if(empty($products)){
                     if($searchData['original'][2] == $i){
                         echo "<span class=\"current\">$i</span>";
                     }else{
-    			echo "<a href=\"/search?k={$searchData['original'][0]}&page=$i\" class=\"page larger\">{$i}</a>";
+    			echo "<a href=\"/search?k={$searchData['original'][0]}&price=$price&priceorder=$priceOrder&page=$i\" class=\"page larger\">{$i}</a>";
                     }
                 }
 	?>

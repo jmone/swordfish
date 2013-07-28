@@ -74,11 +74,12 @@ func main(){
 			Size int
 			Startprice float64
 			Endprice float64
+			Priceorder string
 		}
 		var inputData inputDataStruct
 		err = dec.Decode(&inputData)
 		fmt.Printf("%s %d %d\n-----------------\n", inputData.Input, inputData.Page, inputData.Size)
-		fmt.Printf("%f %f\n-----------------\n", inputData.Startprice, inputData.Endprice)
+		fmt.Printf("%f %f %s\n-----------------\n", inputData.Startprice, inputData.Endprice, inputData.Priceorder)
 		//分词处理
 		input = filter(inputData.Input)
 		result := single_word_seg(input)
@@ -105,7 +106,7 @@ func main(){
 			words = append(words, word.Text)
 		}
 		scoreList.sort()
-		scoreList.clear(inputData.Startprice, inputData.Endprice)
+		scoreList.clear(inputData.Startprice, inputData.Endprice, inputData.Priceorder)
 		fmt.Println(words)
 		data := map[string][]string{}
 		//data["docsid"] = docs[(inputData.Page-1)*inputData.Size : inputData.Size]
