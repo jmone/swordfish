@@ -37,7 +37,7 @@ func (sl *ScoreList)clear(startPrice, endPrice float64, order string){
 		}
 	}
 	if(order == "desc" || order == "asc"){
-		tmp2.orderbyprice(order, 30)
+		tmp2.orderbyprice(order, len(tmp2))
 	}
 	*sl = tmp2
 
