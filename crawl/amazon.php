@@ -10,9 +10,7 @@ include APP_ROOT.'global.func.php';
 
 $crawled_urls = array();
 $uncrawled_urls = array();
-$entry = 'http://www.dangdang.com/';
-$entry = 'http://category.dangdang.com/cid4008137.html';
-$entry = 'http://www.amazon.cn/gp/product/B000VDCTCI/ref=s9_ds_ft_g421_ir03?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-4&pf_rd_r=07C8Z5Q12XQ6ME4ZB567&pf_rd_t=1401&pf_rd_p=78928972&pf_rd_i=353988';
+$entry = 'http://www.amazon.cn/';
 
 init();
 $conn = new Mongo;
@@ -41,6 +39,9 @@ while ($url = array_pop($uncrawled_urls)){
 	$links = parse_links($content);
 	foreach ($links as $link){
 		if(!in_array($link, $crawled_urls) && !in_array($link, $uncrawled_urls)){
+			if(stripos($link, 'amazon.cn') === false){
+				continue;
+			}
 			array_push($uncrawled_urls, $link);
 			if(APP_DEBUY){
 				echo "push \$uncrawled_urls: $link\n";
@@ -73,7 +74,6 @@ function parse_info($url, $content){
 		}
 		if(!$price_tag){
 			echo "$url\n";
-			die;
 			return ;
 		}
 		print_r($price);
@@ -96,8 +96,7 @@ function parse_info($url, $content){
 			'image' => $image,
 			'reindex' => true,
 		);
-		print_r($product);
-		die;
+		//print_r($product);
 		$temp = $collection->findOne(array(
 			'url' => $url,
 		));

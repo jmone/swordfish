@@ -11,7 +11,6 @@ include APP_ROOT.'global.func.php';
 $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://www.dangdang.com/';
-//$entry = 'http://product.dangdang.com/product.aspx?product_id=1076302202';
 
 init();
 $conn = new Mongo;
@@ -40,6 +39,9 @@ while ($url = array_pop($uncrawled_urls)){
 	$links = parse_links($content);
 	foreach ($links as $link){
 		if(!in_array($link, $crawled_urls) && !in_array($link, $uncrawled_urls)){
+			if(stripos($link, 'dangdang.com') === false){
+				continue;
+			}
 			array_push($uncrawled_urls, $link);
 			if(APP_DEBUY){
 				echo "push \$uncrawled_urls: $link\n";
@@ -75,7 +77,6 @@ function parse_info($url, $content){
 		}
 		if(!$price_tag){
 			echo "$url\n";
-			die;
 			return ;
 		}
 		print_r($price);
