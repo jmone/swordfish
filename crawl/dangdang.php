@@ -91,6 +91,7 @@ function parse_info($url, $content){
 		//取商品图片 end
 
 		$product = array(
+			'shop_id' => 1,
 			'title' => $title[1],
 			'sale_price' => $price[1],
 			'original_price' => $price[2],

@@ -12,7 +12,7 @@ $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://www.dangdang.com/';
 $entry = 'http://category.dangdang.com/cid4008137.html';
-$entry = 'http://www.amazon.cn/gp/product/B000VDCTCI/ref=s9_ds_ft_g421_ir03?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-4&pf_rd_r=07C8Z5Q12XQ6ME4ZB567&pf_rd_t=1401&pf_rd_p=78928972&pf_rd_i=353988';
+$entry = 'http://item.jd.com/803677.html';
 
 init();
 $conn = new Mongo;
@@ -56,7 +56,7 @@ function init(){
 }
 function parse_info($url, $content){
 	global $collection;
-	if(preg_match('|<span id="btAsinTitle">(.*)</span>|isU', $content, $title)){
+	if(preg_match('|<h1>(.*)</h1>|isU', $content, $title)){
 		print_r($title);
 		//取商品价格 start
 		$pattern = array(
