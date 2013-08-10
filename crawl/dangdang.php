@@ -39,7 +39,7 @@ while ($url = array_pop($uncrawled_urls)){
 	$links = parse_links($content);
 	foreach ($links as $link){
 		if(!in_array($link, $crawled_urls) && !in_array($link, $uncrawled_urls)){
-			if(stripos($link, 'dangdang.com') === false){
+			if(stripos($link, 'dangdang.com') === false || stripos($link, 'comment') !== false){
 				continue;
 			}
 			array_push($uncrawled_urls, $link);
