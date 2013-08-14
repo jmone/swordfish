@@ -1,52 +1,21 @@
 <?php
-/**
- * 
- * jiangming <admin@exephp.com>
- */
 define('APP_DEBUY', TRUE);
-
 define('APP_ROOT', dirname(__FILE__).'/');
 include APP_ROOT.'global.func.php';
 
-$crawled_urls = array();
-$uncrawled_urls = array();
-$entry = 'http://www.dangdang.com/';
-$entry = 'http://category.dangdang.com/cid4008137.html';
-$entry = 'http://item.jd.com/803677.html';
+//获取库中要抓取的url总数
+//分页获取库中的url
 
-init();
 $conn = new Mongo;
 $db = $conn->swordfish;
 $collection = $db->product;
-if(empty($uncrawled_urls)){
-	die('empty uncrawled url queue.');
-}
 
-while ($url = array_pop($uncrawled_urls)){
-	if(APP_DEBUY){
-		echo "crawl:$url\n";
-	}
-	$content = callback($url);
-	//$content = iconv('GBK', 'UTF-8', $content);
+for($i=803681; $i<=1000000; $i++){
+	$url = "http://item.jd.com/{$i}.html";
+	$content = file_get_contents($url);
+	$content = iconv('GBK', 'UTF-8', $content);
 	//解析页面，如果是产品页，提取入库
-	parse_info($url, $content);
-	//die;
-	$size_crawled = count($crawled_urls);
-	$size_uncrawled = count($uncrawled_urls);
-	echo "Size of \$uncrawled urls:$size_crawled; Size of \$crawled urls:$size_uncrawled\n";
-
-	//解析之后，链接入已处理列表
-	array_push($crawled_urls, $url);
-	//解析出页面新链接，循环处理之
-	$links = parse_links($content);
-	foreach ($links as $link){
-		if(!in_array($link, $crawled_urls) && !in_array($link, $uncrawled_urls)){
-			array_push($uncrawled_urls, $link);
-			if(APP_DEBUY){
-				echo "push \$uncrawled_urls: $link\n";
-			}
-		}
-	}
+	parse_info($i, $url, $content);
 }
 
 //function list
@@ -54,33 +23,16 @@ function init(){
 	global $crawled_urls, $uncrawled_urls, $entry;
 	array_push($uncrawled_urls, $entry);
 }
-function parse_info($url, $content){
+function parse_info($id, $url, $content){
 	global $collection;
 	if(preg_match('|<h1>(.*)</h1>|isU', $content, $title)){
-		print_r($title);
+		//print_r($title);
 		//取商品价格 start
-		$pattern = array(
-			'|<span id="listPriceValue".*>￥ (.*)</span>.*<span id="actualPriceValue"><b class="priceLarge">￥ (.*)</b></span>|isU',
-		);
-		$price_tag = false;
-		$price = array();
-		foreach($pattern as $p){
-			if(preg_match($p, $content, $temp_price)){
-				$price = $temp_price;
-				$price_tag = true;
-				continue;
-			}
-		}
-		if(!$price_tag){
-			echo "$url\n";
-			die;
-			return ;
-		}
-		print_r($price);
+		$price = get_price($id);
 		//取商品价格 end
 
 		//取商品图片 start
-		if(preg_match('|<div class="main-image-inner-wrapper">.*<img src="([^\"]*)".*id="original-main-image".*>.*</div>|isU', $content, $pic)){
+		if(preg_match('|<img data-img="1" width="350" height="350" src="([^\"]*)".*jqimg.*/>|isU', $content, $pic)){
 			$image = $pic[1];
 		}else{
 			$image = '';
@@ -88,6 +40,8 @@ function parse_info($url, $content){
 		//取商品图片 end
 
 		$product = array(
+			'shop_id' => 3,
+			'item_id' => $id,
 			'title' => trim($title[1]),
 			'sale_price' => str_replace(',', '', $price[1]),
 			'original_price' => str_replace(',', '', $price[2]),
@@ -97,7 +51,7 @@ function parse_info($url, $content){
 			'reindex' => true,
 		);
 		print_r($product);
-		die;
+		//die;
 		$temp = $collection->findOne(array(
 			'url' => $url,
 		));
@@ -123,5 +77,16 @@ function parse_info($url, $content){
 			}
 		}
 	}
+}
+
+function get_price($id){
+	$url = "http://jprice.jd.com/price/np{$id}-TRANSACTION-J.html";
+
+	//为防止被禁，暂时不开启本过程
+	//$content = callback($url);
+	return array(
+		1 => 100,
+		2 => 200,
+	);
 }
 ?>
