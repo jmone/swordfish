@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * 从分类页面入手
  * jiangming <admin@exephp.com>
  */
 define('APP_DEBUY', TRUE);
