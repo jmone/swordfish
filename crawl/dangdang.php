@@ -10,16 +10,159 @@ include APP_ROOT.'global.func.php';
 
 $crawled_urls = array();
 $uncrawled_urls = array();
-$entry = 'http://www.dangdang.com/';
+$entry = 'http://category.dangdang.com/';
 
 init();
 $conn = new Mongo;
 $db = $conn->swordfish;
 $collection = $db->product;
-if(empty($uncrawled_urls)){
-	die('empty uncrawled url queue.');
+
+//解析分类入口页面，获取所有列表页面链接
+$content = callback($entry);
+$content = iconv('GBK', 'UTF-8', $content);
+$category_urls = category_urls($content);
+
+//根据列表页生成分页列表，解析每页的产品、分页链接
+while($url = array_pop($category_urls)){
+	$content = callback($url);
+	$content = iconv('GBK', 'UTF-8', $content);
+
+	if( preg_match('|(http://category\.dangdang\.com/cid.*)\.html|', $url, $url_info) ){
+		//获取最大链接
+		if(preg_match('|<span>共([0-9]*)页 到第</span>|isU', $content, $page_info)){
+			$max_page = intval($page_info[1]);
+		}
+		//print_r($url_info);
+		//print_r($page_info);
+		for($i=1; $i<=$max_page; $i++){
+			$url = "{$url_info[1]}-pg{$i}.html";
+			echo $url, "\n";
+			$content = callback($url);
+			$content = iconv('GBK', 'UTF-8', $content);
+
+			if(preg_match_all('|<div class="inner">.*<img data-original=\'([^\']*)\'.*<span class="price_n">&yen;(.*)</span><span class="price_r">&yen;(.*)</span>.*<p class="name".*<a.*href="([^\"]*)".*>(.*)</a></p>.*class="subtitle".*>(.*)</p>.*</div>|isU', $content, $product_info)){
+				//print_r($product_info);
+				foreach($product_info[0] as $p_index => $p){
+					$product = array(
+						'shop_id' => 1,
+						'title' => trim($product_info[5][$p_index]),
+						'alt' => trim($product_info[6][$p_index]),
+						'sale_price' => trim($product_info[2][$p_index]),
+						'original_price' => trim($product_info[3][$p_index]),
+						'url' => trim($product_info[4][$p_index]),
+						'update_time' => time(),
+						'image' => trim($product_info[1][$p_index]),
+						'reindex' => true,
+					);
+					if(strpos($product['url'], '#') !== false){
+						$product['url'] = substr($product['url'], 0, strpos($product['url'], '#'));
+					}
+					insert_mongo($product);
+				}
+			}else{
+				echo "preg fail\n";
+			}
+		}
+	}elseif( preg_match('|http://category\.dangdang\.com/all/\?category_path=*|', $url) ){
+		if(preg_match('|<span>共([0-9]*)页 到第</span>|isU', $content, $page_info)){
+			$max_page = intval($page_info[1]);
+		}
+		//print_r($url);
+		//print_r($page_info);
+
+		for($i=1; $i<=$max_page; $i++){
+			$url = "{$url}&page_index={$i}";
+			echo $url, "\n";
+			$content = callback($url);
+			$content = iconv('GBK', 'UTF-8', $content);
+
+			if(preg_match_all('|<div class="inner">.*<img src=\'([^\']*)\'.*<p class="name".*<a.*href="([^\"]*)".*>(.*)</a></p>.*<span class="price_n">&yen;(.*)</span><span class="price_r">&yen;(.*)</span>.*</div>|isU', $content, $product_info)){
+				print_r($product_info);
+				foreach($product_info[0] as $p_index => $p){
+					$product = array(
+						'shop_id' => 1,
+						'title' => trim($product_info[3][$p_index]),
+						'sale_price' => trim($product_info[4][$p_index]),
+						'original_price' => trim($product_info[5][$p_index]),
+						'url' => trim($product_info[2][$p_index]),
+						'update_time' => time(),
+						'image' => trim($product_info[1][$p_index]),
+						'reindex' => true,
+					);
+					if(strpos($product['url'], '#') !== false){
+						$product['url'] = substr($product['url'], 0, strpos($product['url'], '#'));
+					}
+					insert_mongo($product);
+				}
+			}else{
+				echo "preg fail\n";
+			}
+		}
+
+	}elseif( preg_match('|(http://e\.dangdang\.com/list_.*)\.htm|', $url, $url_info) ){
+
+		if(preg_match('|<input type="hidden" name="totalPage" value="([0-9]*)"/>|isU', $content, $page_info)){
+			$max_page = intval($page_info[1]);
+		}
+		//print_r($url_info);
+		//print_r($page_info);
+	
+		for($i=1; $i<=$max_page; $i++){
+			$url = "{$url_info[1]}_{$i}_saleWeek_1.htm";
+			echo $url, "\n";
+			$content = callback($url);
+			$content = iconv('GBK', 'UTF-8', $content);
+
+			if(preg_match_all('|<div class="ebookLst_s">.*<a name="link_prd_img" href="([^"]*)".*<img src="([^"]*)".*<h2>.*</span>(.*)</a></h2>.*<span>当当价：.*<em>￥(.*)</em>.*<span>定价：<del>￥(.*)</del></span>.*</div>|isU', $content, $product_info)){
+				//print_r($product_info);
+				foreach($product_info[0] as $p_index => $p){
+					$product = array(
+						'shop_id' => 1,
+						'title' => trim($product_info[3][$p_index]),
+						'sale_price' => trim($product_info[4][$p_index]),
+						'original_price' => trim($product_info[5][$p_index]),
+						'url' => trim($product_info[1][$p_index]),
+						'update_time' => time(),
+						'image' => trim($product_info[2][$p_index]),
+						'reindex' => true,
+					);
+					if(strpos($product['url'], '#') !== false){
+						$product['url'] = substr($product['url'], 0, strpos($product['url'], '#'));
+					}
+					insert_mongo($product);
+				}
+			}else{
+				echo "preg fail.\n";
+			}
+		}
+
+	}
+
 }
 
+function category_urls($content){
+	$urls = parse_links($content);
+	foreach($urls as $index => $url){
+		if(stripos($url, 'dangdang.com') === false){
+			unset($urls[$index]);
+			continue;
+		}
+		if( !preg_match('|http://category.dangdang.com/all/\?category_path=*|', $url)
+		 && !preg_match('|http://e.dangdang.com/list_*|', $url)
+		 && !preg_match('|http://category.dangdang.com/cid*|', $url)
+		){
+			print_r($url);echo "\n";
+			unset($urls[$index]);
+			continue;
+		}
+		if(strpos($url, "#")){
+			$urls[$index] = substr($url, 0, strpos($url, "#"));
+		}
+	}
+	return $urls;
+}
+
+/*
 while ($url = array_pop($uncrawled_urls)){
 	if(APP_DEBUY){
 		echo "crawl:$url\n";
@@ -49,6 +192,7 @@ while ($url = array_pop($uncrawled_urls)){
 		}
 	}
 }
+*/
 
 //function list
 function init(){
@@ -125,5 +269,35 @@ function parse_info($url, $content){
 			}
 		}
 	}
+}
+
+function insert_mongo($product){
+	global $collection;
+	$url = $product['url'];
+	$temp = $collection->findOne(array(
+		'url' => $url,
+	));
+	//print_r($temp);
+	if(empty($temp)){
+		$collection->insert($product);
+		if(APP_DEBUY){
+			echo "insert: $url\n";
+		}
+	}else{
+		if($product['title'] == $temp['title']){
+			$product['reindex'] = false;
+		}
+		if($product['title'] != $temp['title'] || $product['alt'] != $temp['alt'] || $product['original_price'] != $temp['original_price'] || $product['sale_price'] !=  $temp['sale_price']){
+			$collection->update(array('url'=>$url), $product);
+			if(APP_DEBUY){
+				echo "insert: $url\n";
+			}
+		}else{
+			if(APP_DEBUY){
+				echo "Product not modified, url:$url\n";
+			}
+		}
+	}
+
 }
 ?>
