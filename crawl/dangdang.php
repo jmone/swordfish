@@ -12,7 +12,7 @@ $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://category.dangdang.com/';
 
-init();
+//init();
 $conn = new Mongo;
 $db = $conn->swordfish;
 $collection = $db->product;
