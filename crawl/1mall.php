@@ -46,7 +46,6 @@ while($url = array_pop($category_urls)){
 		$content = callback($url);
 		$data = json_decode($content, true);
 		parse_info($data["value"]);
-		die;
 	}
 }
 
