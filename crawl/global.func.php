@@ -31,14 +31,14 @@ function parse_links($content = ''){
     if(empty($content)){
         return $links;
     }
-    if(preg_match_all('|<a href="([^\"]*)"|isU', $content, $matches)){
+    if(preg_match_all('|<a.*href="([^\"]*)"|isU', $content, $matches)){
         foreach ($matches[1] as $link){
             if(substr($link, 0, 4) == 'http'){
                 array_push($links, $link);
             }
         }
     }
-    if(preg_match_all('|<a href=\'([^\']*)\'|isU', $content, $matches)){
+    if(preg_match_all('|<a.*href=\'([^\']*)\'|isU', $content, $matches)){
         foreach ($matches[1] as $link){
             if(substr($link, 0, 4) == 'http'){
                 array_push($links, $link);
