@@ -10,7 +10,7 @@ include APP_ROOT.'global.func.php';
 
 $crawled_urls = array();
 $uncrawled_urls = array();
-$entry = 'http://www.yixun.com/';
+$entry = 'http://st.icson.com/static_v1/js/app/categories_6.js?v=2013080301';
 
 //init();
 $conn = new Mongo;
@@ -19,7 +19,8 @@ $collection = $db->product;
 
 //解析分类入口页面，获取所有列表页面链接
 $content = file_get_contents($entry);
-$category_urls = category_urls($content);
+$content = iconv('GBK', 'UTF-8', $content);
+$category_urls = json_decode($content, true);
 print_r($category_urls);die;
 
 //根据列表页生成分页列表，解析每页的产品、分页链接
