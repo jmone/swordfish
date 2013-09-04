@@ -41,6 +41,7 @@ while($url = array_pop($category_urls)){
 		parse_info($content);
 	}
 }
+echo "Crawl over";
 
 //function list
 function parse_info($content){
