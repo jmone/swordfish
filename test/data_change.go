@@ -10,7 +10,7 @@ import(
 
 var(
 	c *mgo.Collection
-	db *sql.DB
+	stmt *sql.Stmt
 )
 
 func init(){
@@ -23,11 +23,17 @@ func init(){
 	session.SetMode(mgo.Monotonic, true)
 	c = session.DB("swordfish").C("product")
 
-	db, err = sql.Open("mysql", "root:32100321@/swordfish")
+	db, err := sql.Open("mysql", "root:32100321@/swordfish")
 	if err != nil{
 		panic(err)
 	}
 	//defer db.Close()
+
+	stmt, err = db.Prepare("INSERT INTO `swordfish`.`product` (`id` ,`shop_id` ,`title` ,`sale_price` ,`original_price` ,`url` ,`update_time` ,`image` ,`reindex`) VALUES (NULL , ?, ?, ?, ?, ?, ?, ?, ?);")
+	if err != nil{
+		panic(err)
+	}
+
 }
 
 type Product struct{
@@ -60,12 +66,7 @@ func getMongoData(page int, size int) []Product{
 }
 
 func saveDataToMysql(data Product){
-	stmtIns, err := db.Prepare("INSERT INTO `swordfish`.`product` (`id` ,`shop_id` ,`title` ,`sale_price` ,`original_price` ,`url` ,`update_time` ,`image` ,`reindex`) VALUES (NULL , ?, ?, ?, ?, ?, ?, ?, ?);")
-	if err != nil{
-		panic(err)
-	}
-
-	_, err = stmtIns.Exec(data.ShopId, data.Title, data.SalePrice, data.OriginalPrice, data.Url, data.UpdateTime, data.Image, data.Reindex)
+	_, err := stmt.Exec(data.ShopId, data.Title, data.SalePrice, data.OriginalPrice, data.Url, data.UpdateTime, data.Image, data.Reindex)
 	if err != nil{
 		panic(err)
 	}
