@@ -74,7 +74,7 @@ func saveDataToMysql(data Product){
 
 func main(){
 	count := getCount()
-	size := 1000
+	size := 5000
 
 	//get total page number.
 	totalPageNumber := count/size
@@ -84,7 +84,7 @@ func main(){
 
 	for page := 1; page <= totalPageNumber; page++{
 		fmt.Println(page, size)
-		products := getMongoData(1, size)
+		products := getMongoData(page, size)
 
 		for _, p := range products{
 			saveDataToMysql(p)
