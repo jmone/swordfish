@@ -11,28 +11,86 @@ class IndexController extends Controller {
 
     public function actionSearch() {
         $input = trim($_GET["k"]);
-	$page = intval($_GET["page"]) > 0 ? intval($_GET["page"]) : 1;
+        $page = intval($_GET["page"]) > 0 ? intval($_GET["page"]) : 1;
+	$size = 10;
         if (empty($input)) {
             $this->redirect('index');
         }
         $price = trim($_GET['price']);
-        if(empty($price)){
+        if (empty($price)) {
             $price = "0;100000";
         }
-	$priceorder = trim($_GET['priceorder']);
-	if(!in_array($priceorder, array('asc', 'desc'))){
-		$priceorder = 'null';
-	}
+        $priceorder = trim($_GET['priceorder']);
+        if (!in_array($priceorder, array('asc', 'desc'))) {
+            $priceorder = 'null';
+        }
         list($startprice, $endprice) = explode(';', $price);
-	$sendStr = json_encode(array(
-		'input' => $input,
-		'page' => $page,
-		'size' => 10,
-        	'startprice' => intval($startprice),
-        	'endprice' => intval($endprice),
-		'priceorder' => $priceorder,
-	));
-        $this->pageTitle = $input."的搜索结果";
+	$startprice = floatval(trim($startprice));
+	$endprice = floatval(trim($endprice));
+
+        require 'sphinxapi.php';
+        $cl = new SphinxClient ();
+        $cl->SetServer('127.0.0.1', 9312);
+        $cl->SetArrayResult(true);
+	$cl->SetFilterFloatRange('original_price', $startprice, $endprice);
+        $cl->SetLimits(($page-1)*$size, $size);
+        $cl->SetMatchMode(SPH_MATCH_EXTENDED);
+        $res = $cl->Query( '@title ('.$input.')' , "*");
+
+        header('Content-type:text/html; charset=utf-8');
+        //echo '<pre>';
+        //print_r($res);
+        //print_r($cl->GetLastError());
+        //print_r($cl->GetLastWarning());
+        //echo '</pre>';
+	foreach($res['matches'] as $item){
+		$data['docsid'][] = $item['id'];
+	}
+	$data['original'] = array(
+		0 => $input,
+		1 => $res['total'],
+		2 => $page,
+		3 => $size,
+	);
+	foreach($res['words'] as $word => $hits){
+		$data['words'][] = $word;
+	}
+	$productsData = Yii::app()->db->createCommand()->select('*')->from('product')->where(array('in', 'id', $data['docsid']))->queryAll();
+	foreach($productsData as $product){
+		$products[$product['id']] = $product;
+	}
+        $this->render('//chagou/list', array(
+            'searchData' => $data,
+            'products' => $products,
+            'price' => $price,
+            'priceOrder' => $priceorder,
+        ));
+    }
+
+    public function actionSearchSwordfish() {
+        $input = trim($_GET["k"]);
+        $page = intval($_GET["page"]) > 0 ? intval($_GET["page"]) : 1;
+        if (empty($input)) {
+            $this->redirect('index');
+        }
+        $price = trim($_GET['price']);
+        if (empty($price)) {
+            $price = "0;100000";
+        }
+        $priceorder = trim($_GET['priceorder']);
+        if (!in_array($priceorder, array('asc', 'desc'))) {
+            $priceorder = 'null';
+        }
+        list($startprice, $endprice) = explode(';', $price);
+        $sendStr = json_encode(array(
+            'input' => $input,
+            'page' => $page,
+            'size' => 10,
+            'startprice' => intval($startprice),
+            'endprice' => intval($endprice),
+            'priceorder' => $priceorder,
+        ));
+        $this->pageTitle = $input . "的搜索结果";
         //执行搜索
         $socket = socket_create(AF_INET, SOCK_STREAM, getprotobyname("tcp"));
         if (socket_connect($socket, "127.0.0.1", 8080)) {
@@ -47,11 +105,11 @@ class IndexController extends Controller {
         socket_close($socket);
         //取出对应商品
         /*
-        $funcGetMongoId = function($idStr) {
-                    $mongoid = new MongoId($idStr);
-                    return $mongoid;
-                };
-        */
+          $funcGetMongoId = function($idStr) {
+          $mongoid = new MongoId($idStr);
+          return $mongoid;
+          };
+         */
         $funcGetMongoId = create_function('$idStr', '$mongoid = new MongoId($idStr);return $mongoid;');
         $conn = new Mongo();
         $db = $conn->swordfish;
@@ -63,7 +121,7 @@ class IndexController extends Controller {
         ));
         $conn->close();
         $products = array();
-        while($product = $cursor->getNext()){
+        while ($product = $cursor->getNext()) {
             $products[$product['_id']->{'$id'}] = $product;
         }
 //        echo "<pre>";
@@ -71,11 +129,15 @@ class IndexController extends Controller {
 //        var_dump($products[0]['_id']->{'$id'});
 //        echo "</pre>";
         //渲染页面
+	print_r($data);
+	print_r($products);
+	print_r($price);
+	print_r($priceorder);
         $this->render('//chagou/list', array(
             'searchData' => $data,
             'products' => $products,
             'price' => $price,
-	    'priceOrder' => $priceorder,
+            'priceOrder' => $priceorder,
         ));
     }
 
