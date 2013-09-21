@@ -21,12 +21,6 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'admin',
-			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
-		),
 		'swordfish',
 		'backend',
 	),
@@ -87,5 +81,44 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+		'sites' => array(
+			1 => array(
+				'name' => '当当',
+				'alias' => 'dangdang'
+			),
+			2 => array(
+				'name' => '亚马逊',
+				'alias' => 'amazon'
+			),
+			3 => array(
+				'name' => '京东',
+				'alias' => 'jd'
+			),
+			4 => array(
+				'name' => '一号店',
+				'alias' => '1mall'
+			),
+			5 => array(
+				'name' => '新蛋',
+				'alias' => 'newegg'
+			),
+			6 => array(
+				'name' => '苏宁',
+				'alias' => 'suning'
+			),
+			7 => array(
+				'name' => '易讯',
+				'alias' => 'yixun'
+			),
+		),
+		'siteUrls' => array(
+			'dangdang' => 'http://www.dangdang.com/',
+			'amazon' => 'http://www.amazon.cn/',
+			'jd' => 'http://www.jd.com/',
+			'1mall' => 'http://www.dangdang.com/',
+			'newegg' => 'http://www.newegg.com.cn/',
+			'suning' => 'http://www.suning.com/',
+			'yixun' => 'http://www.yixun.com/',
+		),
 	),
 );
