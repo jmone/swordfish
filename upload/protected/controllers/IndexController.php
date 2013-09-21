@@ -32,7 +32,7 @@ class IndexController extends Controller {
         $cl = new SphinxClient ();
         $cl->SetServer('127.0.0.1', 9312);
         $cl->SetArrayResult(true);
-	$cl->SetFilterFloatRange('original_price', $startprice, $endprice);
+	$cl->SetFilterFloatRange('sale_price', $startprice, $endprice);
         $cl->SetLimits(($page-1)*$size, $size);
         $cl->SetMatchMode(SPH_MATCH_EXTENDED);
         $res = $cl->Query( '@title ('.$input.')' , "*");
@@ -59,6 +59,7 @@ class IndexController extends Controller {
 	foreach($productsData as $product){
 		$products[$product['id']] = $product;
 	}
+        $this->pageTitle = $input . "的搜索结果";
         $this->render('//chagou/list', array(
             'searchData' => $data,
             'products' => $products,
