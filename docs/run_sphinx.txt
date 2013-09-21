@@ -1,0 +1,2 @@
+/usr/local/coreseek/bin/indexer -c csft_mysql.conf --all
+/usr/local/coreseek/bin/search -c csft_mysql.conf -p 真皮笔套
