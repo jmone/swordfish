@@ -115,7 +115,7 @@ return array(
 			'dangdang' => 'http://www.dangdang.com/',
 			'amazon' => 'http://www.amazon.cn/',
 			'jd' => 'http://www.jd.com/',
-			'1mall' => 'http://www.dangdang.com/',
+			'1mall' => 'http://www.1mall.com/',
 			'newegg' => 'http://www.newegg.com.cn/',
 			'suning' => 'http://www.suning.com/',
 			'yixun' => 'http://www.yixun.com/',

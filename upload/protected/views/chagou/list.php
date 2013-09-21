@@ -85,7 +85,7 @@ if(empty($products)){
           <h2><a href="/jump/product/idstr/<?php echo $product['id'];?>" target="_blank" title="现价：￥<?php echo $product['sale_price'];?>， 原价：￥<?php echo $product['original_price'];?>" class="product_title"><?php echo $product['title'];?></a></h2>
         </li>
         <li>商品价格：<span>¥ <?php echo $product['sale_price'];?></span></li>
-        <li class="fenlei">商品分类：<a href="/">默认分类</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/jump/url/goto/dangdang" target="_blank">当当</a></li>
+        <li class="fenlei">商品分类：<a href="/">默认分类</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/jump/url/goto/<?php echo Yii::app()->params['sites'][$product['shop_id']]['alias'];?>" target="_blank"><?php echo Yii::app()->params['sites'][$product['shop_id']]['name'];?></a></li>
         <li class="gobuy"> <a rel="nofollow" href="#" id="<?php echo $product['id'];?>" class="tc_js">查看详情</a> <a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a> </li>
       </ul>
     </div>

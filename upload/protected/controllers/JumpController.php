@@ -14,10 +14,7 @@ class JumpController extends Controller {
         header('Location:'.$product['url']);
     }
     public function actionUrl($goto){
-        $urls = array(
-            'dangdang' => 'http://www.dangdang.com/',
-            'jd' => 'http://www.jd.com/',
-        );
+        $urls = Yii::app()->params['siteUrls'];
         header('Location:'.$urls[$goto]);
     }
 }
