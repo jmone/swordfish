@@ -35,6 +35,11 @@ class IndexController extends Controller {
 	$cl->SetFilterFloatRange('sale_price', $startprice, $endprice);
         $cl->SetLimits(($page-1)*$size, $size);
         $cl->SetMatchMode(SPH_MATCH_EXTENDED);
+	if($priceorder == 'asc'){
+		$cl->SetSortMode(SPH_SORT_ATTR_ASC, 'sale_price');
+	}elseif($priceorder == 'desc'){
+		$cl->SetSortMode(SPH_SORT_ATTR_DESC, 'sale_price');
+	}
         $res = $cl->Query( '@title ('.$input.')' , "*");
 
         header('Content-type:text/html; charset=utf-8');
