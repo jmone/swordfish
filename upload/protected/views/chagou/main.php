@@ -51,8 +51,20 @@
   </ul>
 </div>
 <?php echo $content; ?>
-<div id="footer_index">
-  <div class="footer_bj">查购网 chagou.com 版权所有 转载请注明出处</div>
+<!--底部-->
+<div class="foot_no_bj foot_bj">
+  <div class="foot_link">
+    <ul>
+      <li><a href="about.html">关于我们</a></li>
+      <li><a href="#">免责声明</a></li>
+      <li><a href="#">网站地图</a></li>
+      <li><a href="#">友情链接</a></li>
+      <li><a href="#">联系我们</a></li>
+    </ul>
+  </div>
+  <div class="clear"></div>
+  <div class="copyright">Copyright @ 2011-2013 chagou.com 京ICP备06042871号-14</div>
 </div>
+<!--底部 end-->
 </body>
 </html>

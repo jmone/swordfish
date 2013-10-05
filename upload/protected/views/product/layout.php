@@ -6,20 +6,14 @@
 <link type="text/css" href="/statics/style.css" rel="stylesheet" />
 <script type="text/javascript" src="/statics/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-  $("#select li:eq(0)").click(function(){
-	$("#select li:eq(1)").removeClass("on").addClass("off");
-	$(this).addClass("on");
-	$("#tanchu_box_b").hide();
-    $("#tanchu_box_a").show();
-  });
-  $("#select li:eq(1)").click(function(){
-	$("#select li:eq(0)").removeClass("on").addClass("off");
-	$(this).addClass("on");
-	$("#tanchu_box_a").hide();
-    $("#tanchu_box_b").show();
-  });
-});
+$(function(){
+	 $("#select ul li").each(function(i){
+		$(this).hover(function(){
+			$(this).addClass("on").siblings().removeClass("on");
+			$(".tanchu_box:eq("+i+")").show().siblings(".tanchu_box").hide();
+		})
+	 })
+})
 </script>
 </head>
 

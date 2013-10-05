@@ -29,7 +29,6 @@
     </div>
   </div>
   <div class="favorite_share">
-      价格排序：<a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc">由低到高</a> | <a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc">由高到低</a>
   </div>
   <div class="mall_shop">
     <h2>商城过滤：</h2>
@@ -42,6 +41,8 @@
       <li class="suning">苏宁</li>
       <li class="dangdang">当当</li>
       <li class="yihao">一号店</li>
+      <li class="guomei">国美</li>
+      <li class="ku8">库巴</li>
     </ul>
   </div>
     <div class="favorite_share">
@@ -63,6 +64,22 @@
 <!--左面 end--> 
 <!--右面-->
 <div class="right_box" id="right_box">
+  <!--面包屑-->
+  <div class="mianbaoxie_home">
+    <ul>
+      <li>您正在搜索的关键词：相机(预留)</li>
+      <li class="num">1 - 20条 共857条(预留)</li>
+    </ul>
+  </div>
+  <div class="sorting">
+    <ul>
+      <li>排序方式：</li>
+      <li><a href="#" title="默认排序" class="on">默认排序</a></li>
+      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc" class="jiantou2">价格由高到底</a></li>
+       <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc" class="jiantou">价格由低到高</a></li>
+    </ul>
+  </div>
+  <!--面包屑 end--> 
 <?php
 if(empty($products)){
 ?>
@@ -86,7 +103,7 @@ if(empty($products)){
         </li>
         <li>商品价格：<span>¥ <?php echo $product['sale_price'];?></span></li>
         <li class="fenlei">商品分类：<a href="/">默认分类</a>&nbsp;&nbsp;&nbsp;&nbsp;所属商城：<a href="/jump/url/goto/<?php echo Yii::app()->params['sites'][$product['shop_id']]['alias'];?>" target="_blank"><?php echo Yii::app()->params['sites'][$product['shop_id']]['name'];?></a></li>
-        <li class="gobuy"> <a rel="nofollow" href="#" id="<?php echo $product['id'];?>" class="tc_js">查看详情</a> <a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a> </li>
+        <li class="gobuy"><a rel="nofollow" href="<?php echo $product['url'];?>" target="_blank">优惠直达</a><a rel="nofollow" href="#" id="<?php echo $product['id'];?>" class="tc_js">查看详情</a></li>
       </ul>
     </div>
   </div>

@@ -18,14 +18,13 @@
     <div class="price_r"></div>
     <h2>会员中心</h2>
   </div>
-<div class="member_left">
-  <ul>
-    <li>用户信息</li>
-    <li>系统消息</li>
-    <li><a href="/user/changePassword">修改密码</a></li>
-    <li><a href="/searchFavorite/list">收藏夹</a></li>
-  </ul>
-</div>
+  <div class="member_left">
+    <ul>
+      <li class="member_nav_a"><span><a href="/user/changePassword">修改密码</a></span></li>
+      <li class="member_nav_b_on"><span><a href="/searchFavorite/list">收藏夹</a></span></li>
+      <li class="member_nav_c"><span>系统消息</span></li>
+    </ul>
+  </div>
 </div>
 <!--左面 end--> 
 <!--右面-->

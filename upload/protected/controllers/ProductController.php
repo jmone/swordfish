@@ -32,8 +32,11 @@ class ProductController extends Controller {
 	$cl->SetSortMode(SPH_SORT_ATTR_ASC, 'sale_price');
         $res = $cl->Query( '@title ('.$product['title'].')' , "*");
 
-	foreach($res['matches'] as $item){
-		$data['docsid'][] = $item['id'];
+	$data['docsid'] = array();
+	if(count($res['matches']) > 0){
+		foreach($res['matches'] as $item){
+			$data['docsid'][] = $item['id'];
+		}
 	}
 	$moreproducts= Yii::app()->db->createCommand()->select('*')->from('product')->where(array('in', 'id', $data['docsid']))->queryAll();
        

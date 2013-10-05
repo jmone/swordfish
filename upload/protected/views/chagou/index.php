@@ -5,7 +5,7 @@
     <div class="search search_index">
       <form role="search" method="get" id="searchform" action="/search">
         <p>
-          <input type="text" onfocus="this.value=(this.value=='请输入你要查询的产品名称或型号...')?'':this.value" onblur="this.value=(this.value=='')?'请输入你要查询的产品名称或型号...':this.value" value="请输入你要查询的产品名称或型号..." name="k" id="s" class="search_a search_a_index">
+          <input type="text" onfocus="this.value=(this.value=='请输入你要查询的产品名称或型号...')?'':this.value" onblur="this.value=(this.value=='')?'请输入你要查询的产品名称或型号...':this.value" value="请输入你要查询的产品名称或型号..." name="k" id="s" class="search_a">
           <input type="submit" id="searchsubmit" class="search_b" value="搜 索">
         </p>
       </form>
