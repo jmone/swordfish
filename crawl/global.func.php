@@ -47,4 +47,37 @@ function parse_links($content = ''){
     }
     return $links;
 }
+
+function insert_mysql($product){
+	global $link;
+	$url = $product['url'];
+	$sql = "SELECT * FROM product WHERE url='$url';";
+	$result = mysql_query($sql, $link);
+	$temp = mysql_fetch_array($result, MYSQL_ASSOC);
+
+	if(empty($temp)){
+		$sql = "INSERT INTO product (shop_id, title, sale_price, original_price, url, update_time, image, reindex) VALUES ('{$product['shop_id']}', '{$product['title']}', '{$product['sale_price']}', '{$product['original_price']}', '{$product['url']}', '{$product['update_time']}', '{$product['image']}', '{$product['reindex']}')";
+		if( mysql_query($sql, $link) ){
+			echo "insert successful:$url\n";
+		}else{
+			echo "insert fail:$url\n";
+		}
+	}else{
+		if($product['title'] == $temp['title']){
+			$product['reindex'] = false;
+		}
+		if($product['title'] != $temp['title'] || $product['alt'] != $temp['alt'] || $product['original_price'] != $temp['original_price'] || $product['sale_price'] !=  $temp['sale_price']){
+			$sql = "UPDATE product SET shop_id='{$product['shop_id']}', title='{$product['title']}', sale_price='{$product['sale_price']}', original_price='{$product['original_price']}', url='{$product['url']}', update_time='{$product['update_time']}', image='{$product['image']}', reindex='{$product['reindex']}' WHERE id='{$temp['id']}';";
+			mysql_query($sql, $link);
+			if(APP_DEBUY){
+				echo "update: $url\n";
+			}
+		}else{
+			if(APP_DEBUY){
+				echo "Product not modified, url:$url\n";
+			}
+		}
+
+	}
+}
 ?>

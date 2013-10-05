@@ -6,16 +6,11 @@
 define('APP_DEBUY', TRUE);
 
 define('APP_ROOT', dirname(__FILE__).'/');
-include APP_ROOT.'global.func.php';
+include APP_ROOT.'init.inc.php';
 
 $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://category.dangdang.com/';
-
-//init();
-$conn = new Mongo;
-$db = $conn->swordfish;
-$collection = $db->product;
 
 //解析分类入口页面，获取所有列表页面链接
 $content = callback($entry);
@@ -57,7 +52,8 @@ while($url = array_pop($category_urls)){
 					if(strpos($product['url'], '#') !== false){
 						$product['url'] = substr($product['url'], 0, strpos($product['url'], '#'));
 					}
-					insert_mongo($product);
+					//insert_mongo($product);
+					insert_mysql($product);
 				}
 			}else{
 				echo "preg fail\n";
