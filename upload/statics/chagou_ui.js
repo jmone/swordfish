@@ -4,17 +4,17 @@
 */
 $(function(){
 	/*主页自动适应*/
-	if( document.getElementById("footer_index") ){
+	if( document.getElementById("header_home") ){
 		var home_height_all = $(window).height(); 
-		var home_height = home_height_all - 142 + 'px'; 
-		$("#footer_index").css({
+		var home_height = home_height_all - 154 + 'px'; 
+		$(".foot_bj").css({
 						"margin-top":""+ home_height +""
 						});
 		
 		  $(window).resize(function() {
 		var home_height_all = $(window).height(); 
-		var home_height = home_height_all - 142 + 'px'; 
-		$("#footer_index").css({
+		var home_height = home_height_all - 154 + 'px'; 
+		$(".foot_bj").css({
 						"margin-top":""+ home_height +""
 						});
 		  });
@@ -28,6 +28,12 @@ $(function(){
 				//var left_box = left_box_all - 60 + 'px'; 
 				$('#left_box').addClass('left_box_on');
 				$('#price').addClass('price_on');
+				$(".search").css({
+				"width":"450px"
+				});
+				$(".search_a").css({
+				"width":"360px"
+				});
 				//$("#left_box").width(left_box);
 				$(".price_l,.price_r").hide();
 			}
@@ -38,10 +44,17 @@ $(function(){
 			    $('#left_box').removeClass('left_box_on');
 				$('#price').removeClass('price_on');
 				$(".price_l,.price_r").show();
+				$(".search_a,.search").removeAttr("style");
 			} else {
 				var left_box = left_box_all - 60 + 'px'; 
 				$('#left_box').addClass('left_box_on');
 				$('#price').addClass('price_on');
+				$(".search").css({
+				"width":"450px"
+				});
+				$(".search_a").css({
+				"width":"360px"
+				});
 				//$("#left_box").width(left_box);
 				$(".price_l,.price_r").hide();
 			}
@@ -80,7 +93,7 @@ $(function(){
 		}
 		  var tc_id = $(this).attr("id");
 		  //var tc_show = tc_id + ".html";
-		  var tc_show = "/product/get/id/"+tc_id;
+		  var tc_show = "/product/get/id/" + tc_id;
 		$("#tishi").html("<div id='tc_content'><div class='tc_content_close'></div><iframe src=" + tc_show + " width='900px' height='500px' scrolling='no' marginheight='0' marginwidth='0' frameborder='0' border='0'></iframe></div><div id='tc_bj' style='opacity: 0.5;'></div>");
 		item_remove();
 	  });
