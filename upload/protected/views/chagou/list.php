@@ -67,16 +67,20 @@
   <!--面包屑-->
   <div class="mianbaoxie_home">
     <ul>
-      <li>您正在搜索的关键词：相机(预留)</li>
-      <li class="num">1 - 20条 共857条(预留)</li>
+      <li>您正在搜索的关键词：<?php echo $searchData['original'][0];?></li>
+      <?php
+	$page = intval($searchData['original'][2]);
+	$size = intval($searchData['original'][3]);
+      ?>
+      <li class="num"><?php echo $page==1 ? 1 : ($page-1)*$size;?> - <?php echo $page*$size;?>条 共<?php echo $searchData['original'][1];?>条</li>
     </ul>
   </div>
   <div class="sorting">
     <ul>
       <li>排序方式：</li>
-      <li><a href="#" title="默认排序" class="on">默认排序</a></li>
-      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc" class="jiantou2">价格由高到底</a></li>
-       <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc" class="jiantou">价格由低到高</a></li>
+      <li><a href="#" title="默认排序" class="on <?php if($priceOrder == 'null'){echo 'light';}?>">默认排序</a></li>
+      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc" class="jiantou2 <?php if($priceOrder == 'desc'){echo 'light';}?>">价格由高到底</a></li>
+       <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc" class="jiantou <?php if($priceOrder == 'asc'){echo 'light';}?>">价格由低到高</a></li>
     </ul>
   </div>
   <!--面包屑 end--> 

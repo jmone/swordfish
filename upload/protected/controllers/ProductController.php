@@ -27,10 +27,9 @@ class ProductController extends Controller {
         $cl = new SphinxClient ();
         $cl->SetServer('127.0.0.1', 9312);
         $cl->SetArrayResult(true);
-	$cl->SetFilterFloatRange('sale_price', 0.1, 1000000);
+	$cl->SetFilterFloatRange('sale_price', 0.1, 1000000.0);
         $cl->SetLimits(($page-1)*$size, $size);
         $cl->SetMatchMode(SPH_MATCH_ANY);
-	$cl->SetSortMode(SPH_SORT_ATTR_ASC, 'sale_price');
         $res = $cl->Query( '@title ('.$product['title'].')' , "*");
 
 	$data['docsid'] = array();

@@ -49,17 +49,23 @@ class IndexController extends Controller {
         //print_r($cl->GetLastError());
         //print_r($cl->GetLastWarning());
         //echo '</pre>';
-	foreach($res['matches'] as $item){
-		$data['docsid'][] = $item['id'];
+	$data['docsid'] = array();
+	if(count($res['matches']) > 0){
+		foreach($res['matches'] as $item){
+			$data['docsid'][] = $item['id'];
+		}
 	}
 	$data['original'] = array(
-		0 => $input,
+		0 => CHtml::encode($input),
 		1 => $res['total'],
 		2 => $page,
 		3 => $size,
 	);
-	foreach($res['words'] as $word => $hits){
-		$data['words'][] = $word;
+	$data['words'] = array();
+	if(count($res['words']) > 0){
+		foreach($res['words'] as $word => $hits){
+			$data['words'][] = $word;
+		}
 	}
 	$productsData = Yii::app()->db->createCommand()->select('*')->from('product')->where(array('in', 'id', $data['docsid']))->queryAll();
 	foreach($productsData as $product){
