@@ -93,7 +93,8 @@ function parse_info($content){
 				if(strpos($product['url'], '#') !== false){
 					$product['url'] = substr($product['url'], 0, strpos($product['url'], '#'));
 				}
-				insert_mongo($product);
+				//insert_mongo($product);
+				insert_mysql($product);
 			}
 			break;
 		}
