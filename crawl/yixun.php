@@ -6,16 +6,11 @@
 define('APP_DEBUY', TRUE);
 
 define('APP_ROOT', dirname(__FILE__).'/');
-include APP_ROOT.'global.func.php';
+include APP_ROOT.'init.inc.php';
 
 $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://st.icson.com/static_v1/js/app/categories_6.js?v=2013080301';
-
-//init();
-$conn = new Mongo;
-$db = $conn->swordfish;
-$collection = $db->product;
 
 //解析分类入口页面，获取所有列表页面链接
 $content = file_get_contents($entry);

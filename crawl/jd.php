@@ -1,14 +1,10 @@
 <?php
 define('APP_DEBUY', TRUE);
 define('APP_ROOT', dirname(__FILE__).'/');
-include APP_ROOT.'global.func.php';
+include APP_ROOT.'init.inc.php';
 
 //获取库中要抓取的url总数
 //分页获取库中的url
-
-$conn = new Mongo;
-$db = $conn->swordfish;
-$collection = $db->product;
 
 for($i=1; $i<=1000000; $i++){
 	$url = "http://item.jd.com/{$i}.html";
