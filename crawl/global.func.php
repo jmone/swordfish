@@ -58,9 +58,9 @@ function insert_mysql($product){
 	if(empty($temp)){
 		$sql = "INSERT INTO product (shop_id, title, sale_price, original_price, url, update_time, image, reindex) VALUES ('{$product['shop_id']}', '{$product['title']}', '{$product['sale_price']}', '{$product['original_price']}', '{$product['url']}', '{$product['update_time']}', '{$product['image']}', '{$product['reindex']}')";
 		if( mysql_query($sql, $link) ){
-			echo "insert successful:$url\n";
+			echo "insert successful: $url\n";
 		}else{
-			echo "insert fail:$url\n";
+			echo "insert fail: $url\n";
 		}
 	}else{
 		if($product['title'] == $temp['title']){
