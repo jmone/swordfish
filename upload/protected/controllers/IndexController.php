@@ -26,6 +26,7 @@ class IndexController extends Controller {
         }
         list($startprice, $endprice) = explode(';', $price);
 	$startprice = floatval(trim($startprice));
+	$startprice = $startprice <= 0 ? 0.1 : $startprice;
 	$endprice = floatval(trim($endprice));
 
         require 'sphinxapi.php';
