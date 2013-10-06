@@ -33,16 +33,16 @@
   <div class="mall_shop">
     <h2>商城过滤：</h2>
     <ul>
-      <li>新蛋</li>
-      <li class="jd">京东</li>
-      <li class="ymx">亚马逊</li>
-      <li class="yixun">易迅</li>
-      <li class="taobao">淘宝</li>
-      <li class="suning">苏宁</li>
-      <li class="dangdang">当当</li>
-      <li class="yihao">一号店</li>
-      <li class="guomei">国美</li>
-      <li class="ku8">库巴</li>
+      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=5">新蛋</a></li>
+      <li class="jd"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=3">京东</a></li>
+      <li class="ymx"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=2">亚马逊</a></li>
+      <li class="yixun"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=7">易迅</a></li>
+      <li class="taobao"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=null">淘宝</a></li>
+      <li class="suning"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=6">苏宁</a></li>
+      <li class="dangdang"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=1">当当</a></li>
+      <li class="yihao"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=4">一号店</a></li>
+      <li class="guomei"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=null">国美</a></li>
+      <li class="ku8"><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=<?php echo $priceOrder;?>&shopid=null">库巴</a></li>
     </ul>
   </div>
     <div class="favorite_share">
@@ -78,9 +78,9 @@
   <div class="sorting">
     <ul>
       <li>排序方式：</li>
-      <li><a href="#" title="默认排序" class="on <?php if($priceOrder == 'null'){echo 'light';}?>">默认排序</a></li>
-      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc" class="jiantou2 <?php if($priceOrder == 'desc'){echo 'light';}?>">价格由高到底</a></li>
-       <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc" class="jiantou <?php if($priceOrder == 'asc'){echo 'light';}?>">价格由低到高</a></li>
+      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=null&shopid=<?php echo $shopid;?>" title="默认排序" class="on <?php if($priceOrder == 'null'){echo 'light';}?>">默认排序</a></li>
+      <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=desc&shopid=<?php echo $shopid;?>" class="jiantou2 <?php if($priceOrder == 'desc'){echo 'light';}?>">价格由高到底</a></li>
+       <li><a href="/search?k=<?php echo $searchData['original'][0];?>&price=<?php echo $price;?>&priceorder=asc&shopid=<?php echo $shopid;?>" class="jiantou <?php if($priceOrder == 'asc'){echo 'light';}?>">价格由低到高</a></li>
     </ul>
   </div>
   <!--面包屑 end--> 
@@ -131,11 +131,22 @@ if(empty($products)){
         <a href="#/page/560/" class="last">560</a>
         -->
 	<?php
-		for($i = 1; $i <= ceil($searchData['original'][1]/$searchData['original'][3]); $i++){
+		if($searchData['original'][2]-1 > 1){
+			$startpageid = $searchData['original'][2] - 1;
+		}else{
+			$startpageid = 1;
+		}
+		for($j = 0; $j <= 8; $j++){
+			$endpageid = $searchData['original'][2] + $j;
+			if($endpageid >= ceil($searchData['original'][1]/$searchData['original'][3])){
+				break;
+			}
+		}
+		for($i = $startpageid; $i <= $endpageid; $i++){
                     if($searchData['original'][2] == $i){
                         echo "<span class=\"current\">$i</span>";
                     }else{
-    			echo "<a href=\"/search?k={$searchData['original'][0]}&price=$price&priceorder=$priceOrder&page=$i\" class=\"page larger\">{$i}</a>";
+    			echo "<a href=\"/search?k={$searchData['original'][0]}&price=$price&priceorder=$priceOrder&shopid=$shopid&page=$i\" class=\"page larger\">{$i}</a>";
                     }
                 }
 	?>

@@ -16,18 +16,26 @@ class IndexController extends Controller {
         if (empty($input)) {
             $this->redirect('index');
         }
+	//价格区间
         $price = trim($_GET['price']);
         if (empty($price)) {
             $price = "0;100000";
-        }
-        $priceorder = trim($_GET['priceorder']);
-        if (!in_array($priceorder, array('asc', 'desc'))) {
-            $priceorder = 'null';
         }
         list($startprice, $endprice) = explode(';', $price);
 	$startprice = floatval(trim($startprice));
 	$startprice = $startprice <= 0 ? 0.1 : $startprice;
 	$endprice = floatval(trim($endprice));
+	//价格排序
+        $priceorder = trim($_GET['priceorder']);
+        if (!in_array($priceorder, array('asc', 'desc'))) {
+            $priceorder = 'null';
+        }
+	//商城过滤
+	$shopid = trim($_GET['shopid']);
+	$shopids = array(1,2,3,4,5,6,7);
+	if(!in_array($shopid, $shopids)){
+		$shopid = 'null';
+	}
 
         require 'sphinxapi.php';
         $cl = new SphinxClient ();
@@ -40,6 +48,9 @@ class IndexController extends Controller {
 		$cl->SetSortMode(SPH_SORT_ATTR_ASC, 'sale_price');
 	}elseif($priceorder == 'desc'){
 		$cl->SetSortMode(SPH_SORT_ATTR_DESC, 'sale_price');
+	}
+	if(in_array($shopid, $shopids)){
+		$cl->SetFilter('shop_id', array($shopid));
 	}
         $res = $cl->Query( '@title ('.$input.')' , "*");
 
@@ -77,6 +88,7 @@ class IndexController extends Controller {
             'products' => $products,
             'price' => $price,
             'priceOrder' => $priceorder,
+            'shopid' => $shopid,
         ));
     }
 
