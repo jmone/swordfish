@@ -136,7 +136,7 @@ if(empty($products)){
 		}else{
 			$startpageid = 1;
 		}
-		for($j = 0; $j <= 8; $j++){
+		for($j = 0; $j <= 10; $j++){
 			$endpageid = $searchData['original'][2] + $j;
 			if($endpageid >= ceil($searchData['original'][1]/$searchData['original'][3])){
 				break;
