@@ -11,13 +11,12 @@ include APP_ROOT.'init.inc.php';
 $crawled_urls = array();
 $uncrawled_urls = array();
 $entry = 'http://www.suning.com/emall/pgv_10052_10051_1_.html';
-
-init();
+//$entry = 'category_suning.html';
 
 //解析分类入口页面，获取所有列表页面链接
 $content = callback($entry);
-$content = iconv('GBK', 'UTF-8', $content);
 $category_urls = category_urls($content);
+print_r($category_urls);die;
 
 //根据列表页生成分页列表，解析每页的产品、分页链接
 while($url = array_pop($category_urls)){
@@ -147,9 +146,7 @@ function category_urls($content){
 			unset($urls[$index]);
 			continue;
 		}
-		if( !preg_match('|http://category.suning.com/all/\?category_path=*|', $url)
-		 && !preg_match('|http://e.suning.com/list_*|', $url)
-		 && !preg_match('|http://category.suning.com/cid*|', $url)
+		if( !preg_match('|http://search.suning.com/emall/strd.do\?ci=*|', $url)
 		){
 			print_r($url);echo "\n";
 			unset($urls[$index]);
