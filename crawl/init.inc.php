@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);
 include APP_ROOT.'global.func.php';
 
 //init();

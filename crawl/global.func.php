@@ -56,7 +56,7 @@ function insert_mysql($product){
 	$temp = mysql_fetch_array($result, MYSQL_ASSOC);
 
 	if(empty($temp)){
-		$sql = "INSERT INTO product (shop_id, title, sale_price, original_price, url, update_time, image, reindex) VALUES ('{$product['shop_id']}', '{$product['title']}', '{$product['sale_price']}', '{$product['original_price']}', '{$product['url']}', '{$product['update_time']}', '{$product['image']}', '{$product['reindex']}')";
+		$sql = "INSERT INTO product (shop_id, category_id, title, sale_price, original_price, url, update_time, image, reindex) VALUES ('{$product['shop_id']}', '{$product['category_id']}', '{$product['title']}', '{$product['sale_price']}', '{$product['original_price']}', '{$product['url']}', '{$product['update_time']}', '{$product['image']}', '{$product['reindex']}')";
 		if( mysql_query($sql, $link) ){
 			echo "insert successful: $url\n";
 		}else{
@@ -67,7 +67,7 @@ function insert_mysql($product){
 			$product['reindex'] = false;
 		}
 		if($product['title'] != $temp['title'] || $product['alt'] != $temp['alt'] || $product['original_price'] != $temp['original_price'] || $product['sale_price'] !=  $temp['sale_price']){
-			$sql = "UPDATE product SET shop_id='{$product['shop_id']}', title='{$product['title']}', sale_price='{$product['sale_price']}', original_price='{$product['original_price']}', url='{$product['url']}', update_time='{$product['update_time']}', image='{$product['image']}', reindex='{$product['reindex']}' WHERE id='{$temp['id']}';";
+			$sql = "UPDATE product SET shop_id='{$product['shop_id']}', category_id='{$product['category_id']}' title='{$product['title']}', sale_price='{$product['sale_price']}', original_price='{$product['original_price']}', url='{$product['url']}', update_time='{$product['update_time']}', image='{$product['image']}', reindex='{$product['reindex']}' WHERE id='{$temp['id']}';";
 			mysql_query($sql, $link);
 			if(APP_DEBUY){
 				echo "update: $url\n";
