@@ -29,6 +29,9 @@ while($url = array_pop($category_urls)){
 		}
 		//print_r($url_info);
 		//print_r($page_info);
+		if(preg_match('|cid(.*)\.html|', $url, $cid)){
+			$category_id = $cid[1];
+		}
 		for($i=1; $i<=$max_page; $i++){
 			$url = "{$url_info[1]}-pg{$i}.html";
 			echo $url, "\n";
@@ -40,6 +43,7 @@ while($url = array_pop($category_urls)){
 				foreach($product_info[0] as $p_index => $p){
 					$product = array(
 						'shop_id' => 1,
+						'category_id' => $category_id,
 						'title' => trim($product_info[5][$p_index]),
 						'alt' => trim($product_info[6][$p_index]),
 						'sale_price' => trim($product_info[2][$p_index]),
@@ -66,6 +70,9 @@ while($url = array_pop($category_urls)){
 		//print_r($url);
 		//print_r($page_info);
 
+		if(preg_match('|category_path=(.*)|', $url, $cid)){
+			$category_id = $cid[1];
+		}
 		for($i=1; $i<=$max_page; $i++){
 			$url = "{$url}&page_index={$i}";
 			echo $url, "\n";
@@ -77,6 +84,7 @@ while($url = array_pop($category_urls)){
 				foreach($product_info[0] as $p_index => $p){
 					$product = array(
 						'shop_id' => 1,
+						'category_id' => $category_id,
 						'title' => trim($product_info[3][$p_index]),
 						'sale_price' => trim($product_info[4][$p_index]),
 						'original_price' => trim($product_info[5][$p_index]),
@@ -104,6 +112,9 @@ while($url = array_pop($category_urls)){
 		//print_r($url_info);
 		//print_r($page_info);
 	
+		if(preg_match('|list_(.*)\.htm|', $url, $cid)){
+			$category_id = $cid[1];
+		}
 		for($i=1; $i<=$max_page; $i++){
 			$url = "{$url_info[1]}_{$i}_saleWeek_1.htm";
 			echo $url, "\n";
@@ -115,6 +126,7 @@ while($url = array_pop($category_urls)){
 				foreach($product_info[0] as $p_index => $p){
 					$product = array(
 						'shop_id' => 1,
+						'category_id' => $category_id,
 						'title' => trim($product_info[3][$p_index]),
 						'sale_price' => trim($product_info[4][$p_index]),
 						'original_price' => trim($product_info[5][$p_index]),

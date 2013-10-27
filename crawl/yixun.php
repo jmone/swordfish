@@ -23,6 +23,9 @@ while($url = array_pop($category_urls)){
 	$content = file_get_contents($url);
 	echo $url,"\n";
 
+	if(preg_match('|path=(.*)|', $url, $cid)){
+		$category_id = $cid[1];
+	}
 	if( !preg_match('|相关产品<b>([0-9]*)</b>件|isU', $content, $total_item_num) ){
 		continue;
 	}
@@ -32,13 +35,13 @@ while($url = array_pop($category_urls)){
 		$url_i = $url.'&page='.$i;
 		echo $url_i, "\n";
 		$content = file_get_contents($url_i);
-		parse_info($content);
+		parse_info($content, $category_id);
 	}
 }
 echo "Crawl over";
 
 //function list
-function parse_info($content){
+function parse_info($content, $category_id){
 	$preg_rules = array(
 		1 => '|<li class="item_list".*>.*<a class="link_pic" target="_blank" href="(.*)".*><img width="200" init_src="(.*)" title="(.*)".*></a>.*<p class="price_icson">价格：<strong class="hot">&yen(.*)</strong></p>.*</li>|isU',
 	);
@@ -50,6 +53,7 @@ function parse_info($content){
 					$url = trim($product_info[1][$p_index]);
 					$product = array(
 						'shop_id' => 7,
+						'category_id' => $category_id,
 						'title' => trim($product_info[3][$p_index]),
 						'alt' => '',
 						'sale_price' => trim($product_info[4][$p_index]),

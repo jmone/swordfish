@@ -23,6 +23,9 @@ while($url = array_pop($category_urls)){
 	$content = iconv('GBK', 'UTF-8', $content);
 	echo $url,"\n";
 
+	if(preg_match('|SubCategory/(.*)\.htm|', $url, $cid)){
+		$category_id = $cid[1];
+	}
 	if( !preg_match('|<ins>[0-9]*/([0-9]*)</ins>|isU', $content, $page_info) ){
 		continue;
 	}
@@ -33,15 +36,15 @@ while($url = array_pop($category_urls)){
 		echo $url_i, "\n";
 		$content = file_get_contents($url_i);
 		$content = iconv('GBK', 'UTF-8', $content);
-		parse_info($content);
+		parse_info($content, $category_id);
 	}
 }
 
 //function list
-function parse_info($content){
+function parse_info($content, $category_id){
 	$preg_rules = array(
 		//1 => '|<li class="cls">.*<div class="img">.*<img src="([^\"]*)" alt.*</div>.*<p class="title">.*<a href="([^\"]*)".*>(.*)</a>.*</p>.*<p class="prom">(.*)</p>.*<p class="priceline">.*<del>&yen;(.*)</del>.*<span class="price">&yen;(.*)</span>.*</p>.*</li>|isU',
-		1 => '|<li class="cls">.*<div class="img">.*<img src="([^\"]*)" alt.*</div>.*<p class="title">.*<a href="([^\"]*)".*>(.*)</a>.*</p>.*<p class="prom">(.*)</p>.*<p class="priceline">.*<span class="price">&yen;(.*)</span>.*</p>.*</li>|isU',
+		1 => '|<li class="cls">.*<div class="img">.*<img src="([^\"]*)".*alt.*</div>.*<p class="title">.*<a href="([^\"]*)".*>(.*)</a>.*</p>.*<p class="prom">(.*)</p>.*<p class="priceline">.*<span class="price">&yen;(.*)</span>.*</p>.*</li>|isU',
 		//1 => '|<li class="cls">.*<p class="priceline">.*<del>&yen;(.*)</del>.*<span class="price">&yen;(.*)</span>.*</p>.*</li>|isU',
 	);
 	foreach($preg_rules as $ruleid => $rule){
@@ -52,6 +55,7 @@ function parse_info($content){
 					$url = trim($product_info[2][$p_index]);
 					$product = array(
 						'shop_id' => 5,
+						'category_id' => $category_id,
 						'title' => trim($product_info[3][$p_index]),
 						'alt' => trim($product_info[4][$p_index]),
 						'sale_price' => trim($product_info[5][$p_index]),
