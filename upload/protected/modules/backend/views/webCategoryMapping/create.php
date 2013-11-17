@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create CategoryMapping</h1>
+<h3>添加映射关系</h3>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 </div>

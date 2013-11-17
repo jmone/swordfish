@@ -1,10 +1,11 @@
+<div class="container-fluid hpadded">
 <?php
 /* @var $this WebCategoryMappingController */
 /* @var $model CategoryMapping */
 
 $this->breadcrumbs=array(
 	'Category Mappings'=>array('index'),
-	$model->id,
+	$model->name,
 );
 
 $this->menu=array(
@@ -16,7 +17,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View CategoryMapping #<?php echo $model->id; ?></h1>
+<h3>察看信息</h3>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -25,5 +26,8 @@ $this->menu=array(
 		'category_id',
 		'site_id',
 		'site_category_id',
+		'site_url',
+		'name',
 	),
 )); ?>
+</div>

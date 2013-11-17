@@ -21,5 +21,13 @@
 	<?php echo CHtml::encode($data->site_category_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('site_url')); ?>:</b>
+	<?php echo CHtml::encode($data->site_url); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
+	<?php echo CHtml::encode($data->name); ?>
+	<br />
+
 
 </div>

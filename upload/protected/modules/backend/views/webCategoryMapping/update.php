@@ -1,10 +1,11 @@
+<div class="container-fluid hpadded">
 <?php
 /* @var $this WebCategoryMappingController */
 /* @var $model CategoryMapping */
 
 $this->breadcrumbs=array(
 	'Category Mappings'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	$model->name=>array('view','id'=>$model->id),
 	'Update',
 );
 
@@ -16,6 +17,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update CategoryMapping <?php echo $model->id; ?></h1>
+<h3>更新信息</h3>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+</div>
