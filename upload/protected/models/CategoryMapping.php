@@ -7,7 +7,9 @@
  * @property integer $id
  * @property integer $category_id
  * @property integer $site_id
- * @property integer $site_category_id
+ * @property string $site_category_id
+ * @property string $site_url
+ * @property string $name
  */
 class CategoryMapping extends CActiveRecord
 {
@@ -37,11 +39,13 @@ class CategoryMapping extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_id, site_id, site_category_id', 'required'),
-			array('category_id, site_id, site_category_id', 'numerical', 'integerOnly'=>true),
+			array('site_id, site_category_id', 'required'),
+			array('category_id, site_id', 'numerical', 'integerOnly'=>true),
+			array('site_category_id, name', 'length', 'max'=>20),
+			array('site_url', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, category_id, site_id, site_category_id', 'safe', 'on'=>'search'),
+			array('id, category_id, site_id, site_category_id, site_url, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,9 +67,11 @@ class CategoryMapping extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'category_id' => '所属分类',
-			'site_id' => '资源站点',
-			'site_category_id' => '资源站点分类ID',
+			'category_id' => '分类ID',
+			'site_id' => '商城ID',
+			'site_category_id' => '商城分类ID',
+			'site_url' => '商城分类链接',
+			'name' => '商城分类名称',
 		);
 	}
 
@@ -83,7 +89,9 @@ class CategoryMapping extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('category_id',$this->category_id);
 		$criteria->compare('site_id',$this->site_id);
-		$criteria->compare('site_category_id',$this->site_category_id);
+		$criteria->compare('site_category_id',$this->site_category_id,true);
+		$criteria->compare('site_url',$this->site_url,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
