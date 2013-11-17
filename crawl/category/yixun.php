@@ -15,13 +15,13 @@ $entry = 'http://st.icson.com/static_v1/js/app/categories_6.js?v=2013080301';
 $content = file_get_contents($entry);
 $content = iconv('GBK', 'UTF-8', $content);
 $category_urls = category_urls($content);
-//print_r($category_urls);
+print_r($category_urls);
 
 //根据列表页生成分页列表，解析每页的产品、分页链接
-while($url = array_pop($category_urls)){
-	if(preg_match('|path=(.*)|', $url, $cid)){
+while($item = array_pop($category_urls)){
+	if(preg_match('|path=(.*)|', $item['url'], $cid)){
 		$category_id = $cid[1];
-		insert_category($site_id, $category_id, $url);
+		insert_category($site_id, $category_id, $item['url'], $item['name']);
 	}
 }
 echo "Crawl over";
@@ -51,20 +51,20 @@ function category_urls($content){
 		//c1list
 		foreach($d['c1list'] as $c){
 			if($url = get_category_url($c['url'])){
-				array_push($urls, $url);
+				array_push($urls, array('url'=>$url, 'name'=>$c['text']));
 			}
 		}
 		//keyword
 		foreach($d['keyword'] as $c){
 			if($url = get_category_url($c['url'])){
-				array_push($urls, $url);
+				array_push($urls, array('url'=>$url, 'name'=>$c['text']));
 			}
 		}
 		//list
 		foreach($d['list'] as $list){
 			foreach($list['list'] as $c){
 				if($url = get_category_url($c['url'])){
-					array_push($urls, $url);
+					array_push($urls, array('url'=>$url, 'name'=>$c['text']));
 				}
 			}
 		}
